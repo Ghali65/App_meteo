@@ -1,0 +1,5 @@
+# Ignore le dossier CSV
+CSV/
+
+# Ignore les fichiers compilés Python
+__pycache__/

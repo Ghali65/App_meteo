@@ -1,5 +1,6 @@
 import pandas as pd
 from typing import Union
+from datetime import datetime
 
 class Record:
     """
@@ -27,7 +28,12 @@ class Record:
         return self._get_value("temperature_en_degre_c")
 
     def heure_de_paris(self) -> Union[str, None]:
-        return self._get_value("heure_de_paris")
+        raw = self._get_value("heure_de_paris")
+        try:
+            dt = datetime.fromisoformat(raw)
+            return dt.strftime("%d-%m-%Y %Hh%M")
+        except Exception:
+            return raw  # En cas d'erreur, retourne brut
 
     def ville(self) -> Union[str, None]:
         return self._get_value("Ville")

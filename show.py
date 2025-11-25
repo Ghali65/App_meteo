@@ -1,6 +1,4 @@
-# show.py
-
-class Show:
+class Show_Info:
     """
     Classe utilitaire pour afficher les informations météo extraites d'un objet Record.
     """
@@ -24,7 +22,7 @@ class Show:
         print("🌡️ Température :", self.record.temperature())
 
     def display_heure_de_paris(self) -> None:
-        print("🕒 Dernière mis à jour :", self.record.heure_de_paris())
+        print("🕒 Dernière mise à jour :", self.record.heure_de_paris())
 
     def display_ville(self) -> None:
         print("🏙️ Ville :", self.record.ville())

@@ -2,9 +2,11 @@ import pandas as pd
 from typing import Union
 from datetime import datetime
 
-class Record:
+
+class Record_Info:
     """
-    Classe pour encapsuler un DataFrame météo et fournir des méthodes d'affichage ou de traitement.
+    Classe pour encapsuler un DataFrame météo et fournir des méthodes
+    d'affichage ou de traitement.
     """
 
     def __init__(self, df: pd.DataFrame) -> None:
@@ -12,7 +14,7 @@ class Record:
         Initialise la classe avec un DataFrame.
 
         Args:
-            df (pd.DataFrame): Données station météo choisit.
+            df (pd.DataFrame): Données station météo choisies.
         """
         if df.empty:
             print("⚠️ Le DataFrame fourni est vide.")
@@ -53,6 +55,5 @@ class Record:
         """
         if column in self.df.columns and not self.df[column].isnull().all():
             return self.df[column].iloc[0]
-        else:
-            print(f"⚠️ Colonne '{column}' absente ou vide.")
-            return None
+        print(f"⚠️ Colonne '{column}' absente ou vide.")
+        return None

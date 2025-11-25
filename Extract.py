@@ -1,9 +1,9 @@
 import pandas as pd
 import requests
-from datetime import datetime
 from typing import Optional
 
-class StationSelector:
+
+class Station_Selector:
     """
     Permet à l'utilisateur de choisir un dataset_id depuis un fichier CSV.
     Le fichier doit contenir une colonne 'dataset_id'.
@@ -11,8 +11,10 @@ class StationSelector:
 
     def __init__(self, csv_path: str) -> None:
         self.stations_df: pd.DataFrame = pd.read_csv(csv_path)
-        if 'dataset_id' not in self.stations_df.columns:
-            raise ValueError("Le fichier CSV doit contenir une colonne 'dataset_id'.")
+        if "dataset_id" not in self.stations_df.columns:
+            raise ValueError(
+                "Le fichier CSV doit contenir une colonne 'dataset_id'."
+            )
         self.dataset_id: Optional[str] = None
 
     def choose(self) -> str:
@@ -22,17 +24,24 @@ class StationSelector:
 
         while True:
             try:
-                choice: int = int(input("Choisissez une station (numéro) : ")) - 1
+                choice: int = int(
+                    input("Choisissez une station (numéro) : ")
+                ) - 1
                 if 0 <= choice < len(self.stations_df):
-                    self.dataset_id = self.stations_df.loc[choice, 'dataset_id']
+                    self.dataset_id = self.stations_df.loc[
+                        choice, "dataset_id"
+                    ]
                     print(f"Dataset sélectionné : {self.dataset_id}")
                     return self.dataset_id
-                else:
-                    print(f"Numéro invalide. Entrez un nombre entre 1 et {len(self.stations_df)}.")
+                print(
+                    f"Numéro invalide. Entrez un nombre entre 1 et "
+                    f"{len(self.stations_df)}."
+                )
             except ValueError:
                 print("Entrée non valide. Veuillez entrer un numéro entier.")
 
-class CallAPI:
+
+class Call_API:
     """
     Interroge l'API Toulouse Métropole pour un dataset_id donné.
     """
@@ -43,18 +52,20 @@ class CallAPI:
 
     def fetch(self) -> None:
         url: str = (
-            f"https://data.toulouse-metropole.fr/api/explore/v2.1/catalog/datasets/"
-            f"{self.dataset_id}/records?order_by=heure_de_paris%20DESC&limit=1"
+            "https://data.toulouse-metropole.fr/api/explore/v2.1/catalog/"
+            f"datasets/{self.dataset_id}/records?"
+            "order_by=heure_de_paris%20DESC&limit=1"
         )
         try:
             response = requests.get(url)
             response.raise_for_status()
             self.data = response.json()
-        except requests.RequestException as e:
-            print(f"Erreur lors de la requête API : {e}")
+        except requests.RequestException as error:
+            print(f"Erreur lors de la requête API : {error}")
             self.data = None
 
-class ToDataFrame:
+
+class To_DataFrame:
     """
     Convertit les données JSON en DataFrame pandas enrichi.
     """
@@ -69,6 +80,5 @@ class ToDataFrame:
             df["dataset_id"] = self.dataset_id
             df["Ville"] = "Toulouse"
             return df
-        else:
-            print("Aucune donnée disponible ou format inattendu.")
-            return pd.DataFrame()
+        print("Aucune donnée disponible ou format inattendu.")
+        return pd.DataFrame()

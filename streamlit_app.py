@@ -1,11 +1,10 @@
 import streamlit as st
-import pandas as pd
 import Extract as e
 import Transform as t
 import show
 
 # Chargement des stations
-selector = e.StationSelector("data/meteo_ids.csv")
+selector = e.Station_Selector("data/meteo_ids.csv")
 stations_df = selector.stations_df
 
 # Interface utilisateur : choix de la station
@@ -19,19 +18,19 @@ selected_index = st.selectbox("Stations disponibles :", range(len(station_names)
 dataset_id = stations_df.loc[selected_index, 'dataset_id']
 
 # Appel API
-api = e.CallAPI(dataset_id)
+api = e.Call_API(dataset_id)
 api.fetch()
 
 # Conversion en DataFrame
-converter = e.ToDataFrame(api.data, dataset_id)
+converter = e.To_DataFrame(api.data, dataset_id)
 df = converter.convert()
 
 # Affichage brut du DataFrame
 st.write("📋 Données brutes :", df)
 
 # Transformation
-record = t.Record(df)
-viewer = show.Show(record)
+record = t.Record_Info(df)
+viewer = show.Show_Info(record)
 
 # Interface utilisateur : choix des infos à afficher
 st.subheader("📌 Informations météo à afficher")

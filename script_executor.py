@@ -2,27 +2,34 @@ import Extract as e
 import Transform as t
 import show as s
 
-# Étapes d'extraction
-selector = e.StationSelector("data/meteo_ids.csv")
-dataset_id = selector.choose()
 
-api = e.CallAPI(dataset_id)
-api.fetch()
+def main() -> None:
+    """Script principal pour exécuter l'extraction, la transformation et l'affichage."""
 
-converter = e.ToDataFrame(api.data, dataset_id)
-df = converter.convert()
+    # Étapes d'extraction
+    selector = e.Station_Selector("data/meteo_ids.csv")
+    dataset_id = selector.choose()
 
-# Transformation
-record = t.Record(df)
+    api = e.Call_API(dataset_id)
+    api.fetch()
 
-# Affichage unitaire
-show = s.Show(record)
+    converter = e.To_DataFrame(api.data, dataset_id)
+    df = converter.convert()
 
-print("\n--- Affichage personnalisé ---")
-show.display_ville()
-show.display_dataset_id()
-show.display_temperature()
-show.display_humidite()
-show.display_pression()
-show.display_heure_de_paris()
+    # Transformation
+    record = t.Record_Info(df)
 
+    # Affichage unitaire
+    viewer = s.Show_Info(record)
+
+    print("\n--- Affichage personnalisé ---")
+    viewer.display_ville()
+    viewer.display_dataset_id()
+    viewer.display_temperature()
+    viewer.display_humidite()
+    viewer.display_pression()
+    viewer.display_heure_de_paris()
+
+
+if __name__ == "__main__":
+    main()

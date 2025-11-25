@@ -1,3 +1,4 @@
+import json
 import Extract as e
 import Transform as t
 import show as s
@@ -6,8 +7,14 @@ import show as s
 def main() -> None:
     """Script principal pour exécuter l'extraction, la transformation et l'affichage."""
 
+    # Charger la configuration
+    with open("config.json", "r", encoding="utf-8") as f:
+        config = json.load(f)
+
+    csv_path = config["csv_path"]
+
     # Étapes d'extraction
-    selector = e.Station_Selector("data/meteo_ids.csv")
+    selector = e.Station_Selector(csv_path)
     dataset_id = selector.choose()
 
     api = e.Call_API(dataset_id)
@@ -21,14 +28,7 @@ def main() -> None:
 
     # Affichage unitaire
     viewer = s.Show_Info(record)
-
-    print("\n--- Affichage personnalisé ---")
-    viewer.display_ville()
-    viewer.display_dataset_id()
-    viewer.display_temperature()
-    viewer.display_humidite()
-    viewer.display_pression()
-    viewer.display_heure_de_paris()
+    viewer.display_all()
 
 
 if __name__ == "__main__":

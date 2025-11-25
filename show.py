@@ -35,9 +35,9 @@ class Show_Info:
         Affiche toutes les informations disponibles.
         """
         print("\n--- Informations météo extraites ---")
+        self.display_ville()
+        self.display_dataset_id()
         self.display_temperature()
         self.display_humidite()
         self.display_pression()
         self.display_heure_de_paris()
-        self.display_ville()
-        self.display_dataset_id()

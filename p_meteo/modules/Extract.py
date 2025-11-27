@@ -4,7 +4,7 @@ import json
 from typing import Optional
 
 
-class Station_Selector:
+class StationSelector:
     """
     Permet à l'utilisateur de choisir un dataset_id depuis un fichier CSV.
     Le fichier doit contenir une colonne 'dataset_id'.
@@ -42,7 +42,7 @@ class Station_Selector:
                 print("Entrée non valide. Veuillez entrer un numéro entier.")
 
 
-class Call_API:
+class CallAPI:
     """
     Interroge l'API Toulouse Métropole pour un dataset_id donné.
     """
@@ -51,7 +51,7 @@ class Call_API:
         self.dataset_id: str = dataset_id
         self.data: Optional[dict] = None
         # Charger l'URL de base depuis config.json
-        with open("config.json", "r", encoding="utf-8") as f:
+        with open("p_meteo/config.json", "r", encoding="utf-8") as f:
             config = json.load(f)
         self.base_url: str = config["url"]
 
@@ -69,7 +69,7 @@ class Call_API:
             self.data = None
 
 
-class To_DataFrame:
+class ToDataFrame:
     """
     Convertit les données JSON en DataFrame pandas enrichi.
     """

@@ -3,7 +3,7 @@ from typing import Union
 from datetime import datetime
 
 
-class Record_Info:
+class RecordInfo:
     """
     Classe pour encapsuler un DataFrame météo et fournir des méthodes
     d'affichage ou de traitement.
@@ -29,7 +29,7 @@ class Record_Info:
     def temperature(self) -> Union[int, float, None]:
         return self._get_value("temperature_en_degre_c")
 
-    def heure_de_paris(self) -> Union[str, None]:
+    def heure_maj(self) -> Union[str, None]:
         raw = self._get_value("heure_de_paris")
         try:
             dt = datetime.fromisoformat(raw)
@@ -40,7 +40,7 @@ class Record_Info:
     def ville(self) -> Union[str, None]:
         return self._get_value("Ville")
 
-    def dataset_id(self) -> Union[str, None]:
+    def station_id(self) -> Union[str, None]:
         return self._get_value("dataset_id")
 
     def _get_value(self, column: str) -> Union[int, float, str, None]:

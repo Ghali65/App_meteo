@@ -14,6 +14,7 @@ from .modules.show.s_pression import SPression
 from .modules.show.s_station_id import SStationId
 from .modules.show.s_temperature import STemperature
 from .modules.show.s_ville import SVille
+from .modules.chained.linked_list import Link, LinkedList
 
 
 def main() -> None:
@@ -43,20 +44,24 @@ def main() -> None:
     extract_ville = TVille(df)
     extract_humidite = THumidite(df)
 
-    # Affichage unitaire
-    
+    # Affichage via viewers
     viewer_temp = STemperature(extract_temp)
     viewer_heure_maj = SHeureMaj(extract_heure_maj)
     viewer_pression = SPression(extract_pression)
     viewer_station_id = SStationId(extract_station_id)
     viewer_ville = SVille(extract_ville)
     viewer_humidite = SHumidite(extract_humidite)
-    viewer_ville.display_ville()
-    viewer_station_id.display_station_id()
-    viewer_temp.display_temperature()
-    viewer_humidite.display_humidite()
-    viewer_pression.display_pression()
-    viewer_heure_maj.display_heure_maj()
+
+    # Liste chaînée des viewers (ordre défini ici)
+    linked_list = LinkedList(Link(viewer_ville))
+    linked_list.ajouter_maillon(Link(viewer_station_id))
+    linked_list.ajouter_maillon(Link(viewer_temp))
+    linked_list.ajouter_maillon(Link(viewer_humidite))
+    linked_list.ajouter_maillon(Link(viewer_pression))
+    linked_list.ajouter_maillon(Link(viewer_heure_maj))
+
+    # Parcours et affichage
+    linked_list.afficher_liste()
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,6 @@
 import pandas as pd
 from typing import Union
-
+from ._get_value import get_value
 
 class TStationId:
     """
@@ -20,19 +20,4 @@ class TStationId:
         self.df: pd.DataFrame = df
 
     def station_id(self) -> Union[str, None]:
-        return self._get_value("dataset_id")
-
-    def _get_value(self, column: str) -> Union[int, float, str, None]:
-        """
-        Méthode interne pour récupérer la première valeur d'une colonne.
-
-        Args:
-            column (str): Nom de la colonne à extraire.
-
-        Returns:
-            Valeur unique de la colonne ou None si absente.
-        """
-        if column in self.df.columns and not self.df[column].isnull().all():
-            return self.df[column].iloc[0]
-        print(f"⚠️ Colonne '{column}' absente ou vide.")
-        return None
+        return get_value(self.df,"dataset_id")

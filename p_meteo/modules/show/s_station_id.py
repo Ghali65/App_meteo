@@ -12,6 +12,6 @@ class SStationId:
         """
         self.record = record
 
-    def display_station_id(self) -> None:
+    def display(self) -> None:
         print("🆔 Station :", self.record.station_id())
 

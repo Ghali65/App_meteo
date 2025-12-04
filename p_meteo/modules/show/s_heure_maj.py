@@ -12,6 +12,6 @@ class SHeureMaj:
         """
         self.record = record
 
-    def display_heure_maj(self) -> None:
+    def display(self) -> None:
         print("🕒 Dernière mise à jour :", self.record.heure_maj())
 

@@ -12,6 +12,6 @@ class SHumidite:
         """
         self.record = record
 
-    def display_humidite(self) -> None:
+    def display(self) -> None:
         print("💧 Humidité :", self.record.humidite())
 

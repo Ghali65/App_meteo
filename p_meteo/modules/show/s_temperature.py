@@ -12,5 +12,5 @@ class STemperature:
         """
         self.record = record
 
-    def display_temperature(self) -> None:
+    def display(self) -> None:
         print("🌡️ Température :", self.record.temperature())

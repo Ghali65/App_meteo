@@ -12,5 +12,5 @@ class SPression:
         """
         self.record = record
 
-    def display_pression(self) -> None:
+    def display(self) -> None:
         print("📊 Pression :", self.record.pression())

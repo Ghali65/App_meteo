@@ -44,8 +44,7 @@ class StationSelector:
         while True:
             try:
                 selection = input(
-                    "Choisissez une ou plusieurs stations "
-                    "(ex: 1,3,5-7) : "
+                    "Choisissez une ou plusieurs stations [séparé par une , ou de - pour indiquer un début et une fin (ex: 1,3,5-7)] : "
                 )
                 indices = self._parse_selection(selection)
 

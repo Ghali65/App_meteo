@@ -1,4 +1,7 @@
 import json
+from typing import Any, Dict, List
+import pandas as pd
+
 from .modules.extract.station_selector import StationSelector
 from .modules.extract.call_api import CallApi
 from .modules.extract.to_dataframe import ToDataFrame
@@ -18,47 +21,49 @@ from .modules.chained.linked_list import Link, LinkedList
 
 
 def main() -> None:
-    """Script principal pour exécuter l'extraction, la transformation et l'affichage."""
+    """
+    Script principal pour exécuter l'extraction, la transformation et l'affichage.
+    """
 
     # Charger la configuration
     with open("p_meteo/config.json", "r", encoding="utf-8") as f:
-        config = json.load(f)
+        config: Dict[str, Any] = json.load(f)
 
-    csv_path = config["csv_path"]
+    csv_path: str = config["csv_path"]
 
     # Sélection des stations (une ou plusieurs)
-    selector = StationSelector(csv_path)
-    dataset_ids = selector.choose()  # retourne une liste de dataset_id
+    selector: StationSelector = StationSelector(csv_path)
+    dataset_ids: List[str] = selector.choose()  # retourne une liste de dataset_id
 
     # Parcours des stations sélectionnées
     for dataset_id in dataset_ids:
         print(f"\n=== Traitement de la station {dataset_id} ===")
 
         # Étapes d'extraction
-        api = CallApi(dataset_id)
+        api: CallApi = CallApi(dataset_id)
         api.fetch()
 
-        converter = ToDataFrame(api.data, dataset_id)
-        df = converter.convert()
+        converter: ToDataFrame = ToDataFrame(api.data, dataset_id)
+        df: pd.DataFrame = converter.convert()
 
-        # Transformation
-        extract_temp = TTemperature(df)
-        extract_heure_maj = THeureMaj(df)
-        extract_pression = TPression(df)
-        extract_station_id = TStationId(df)
-        extract_ville = TVille(df)
-        extract_humidite = THumidite(df)
+        # Transformation (chaque classe retourne un objet transformé)
+        extract_temp: TTemperature = TTemperature(df)
+        extract_heure_maj: THeureMaj = THeureMaj(df)
+        extract_pression: TPression = TPression(df)
+        extract_station_id: TStationId = TStationId(df)
+        extract_ville: TVille = TVille(df)
+        extract_humidite: THumidite = THumidite(df)
 
-        # Viewers
-        viewer_temp = STemperature(extract_temp)
-        viewer_heure_maj = SHeureMaj(extract_heure_maj)
-        viewer_pression = SPression(extract_pression)
-        viewer_station_id = SStationId(extract_station_id)
-        viewer_ville = SVille(extract_ville)
-        viewer_humidite = SHumidite(extract_humidite)
+        # Viewers (chaque viewer expose display() -> None)
+        viewer_temp: STemperature = STemperature(extract_temp)
+        viewer_heure_maj: SHeureMaj = SHeureMaj(extract_heure_maj)
+        viewer_pression: SPression = SPression(extract_pression)
+        viewer_station_id: SStationId = SStationId(extract_station_id)
+        viewer_ville: SVille = SVille(extract_ville)
+        viewer_humidite: SHumidite = SHumidite(extract_humidite)
 
         # Pipeline via LinkedList
-        linked_list = LinkedList(Link(viewer_ville))
+        linked_list: LinkedList = LinkedList(Link(viewer_ville))
         linked_list.ajouter_maillon(Link(viewer_station_id))
         linked_list.ajouter_maillon(Link(viewer_temp))
         linked_list.ajouter_maillon(Link(viewer_humidite))
@@ -67,6 +72,7 @@ def main() -> None:
 
         # Affichage des résultats
         linked_list.afficher_liste()
+
 
 if __name__ == "__main__":
     main()

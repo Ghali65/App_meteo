@@ -26,42 +26,47 @@ def main() -> None:
 
     csv_path = config["csv_path"]
 
-    # Étapes d'extraction
+    # Sélection des stations (une ou plusieurs)
     selector = StationSelector(csv_path)
-    dataset_id = selector.choose()
+    dataset_ids = selector.choose()  # retourne une liste de dataset_id
 
-    api = CallApi(dataset_id)
-    api.fetch()
+    # Parcours des stations sélectionnées
+    for dataset_id in dataset_ids:
+        print(f"\n=== Traitement de la station {dataset_id} ===")
 
-    converter = ToDataFrame(api.data, dataset_id)
-    df = converter.convert()
+        # Étapes d'extraction
+        api = CallApi(dataset_id)
+        api.fetch()
 
-    # Transformation
-    extract_temp = TTemperature(df)
-    extract_heure_maj = THeureMaj(df)
-    extract_pression = TPression(df)
-    extract_station_id = TStationId(df)
-    extract_ville = TVille(df)
-    extract_humidite = THumidite(df)
+        converter = ToDataFrame(api.data, dataset_id)
+        df = converter.convert()
 
-    # Affichage via viewers
-    viewer_temp = STemperature(extract_temp)
-    viewer_heure_maj = SHeureMaj(extract_heure_maj)
-    viewer_pression = SPression(extract_pression)
-    viewer_station_id = SStationId(extract_station_id)
-    viewer_ville = SVille(extract_ville)
-    viewer_humidite = SHumidite(extract_humidite)
+        # Transformation
+        extract_temp = TTemperature(df)
+        extract_heure_maj = THeureMaj(df)
+        extract_pression = TPression(df)
+        extract_station_id = TStationId(df)
+        extract_ville = TVille(df)
+        extract_humidite = THumidite(df)
 
-    # Liste chaînée des viewers (ordre défini ici)
-    linked_list = LinkedList(Link(viewer_ville))
-    linked_list.ajouter_maillon(Link(viewer_station_id))
-    linked_list.ajouter_maillon(Link(viewer_temp))
-    linked_list.ajouter_maillon(Link(viewer_humidite))
-    linked_list.ajouter_maillon(Link(viewer_pression))
-    linked_list.ajouter_maillon(Link(viewer_heure_maj))
+        # Viewers
+        viewer_temp = STemperature(extract_temp)
+        viewer_heure_maj = SHeureMaj(extract_heure_maj)
+        viewer_pression = SPression(extract_pression)
+        viewer_station_id = SStationId(extract_station_id)
+        viewer_ville = SVille(extract_ville)
+        viewer_humidite = SHumidite(extract_humidite)
 
-    # Parcours et affichage
-    linked_list.afficher_liste()
+        # Pipeline via LinkedList
+        linked_list = LinkedList(Link(viewer_ville))
+        linked_list.ajouter_maillon(Link(viewer_station_id))
+        linked_list.ajouter_maillon(Link(viewer_temp))
+        linked_list.ajouter_maillon(Link(viewer_humidite))
+        linked_list.ajouter_maillon(Link(viewer_pression))
+        linked_list.ajouter_maillon(Link(viewer_heure_maj))
+
+        # Affichage des résultats
+        linked_list.afficher_liste()
 
 if __name__ == "__main__":
     main()

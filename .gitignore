@@ -3,3 +3,6 @@ CSV/
 
 # Ignore les fichiers compilés Python
 __pycache__/
+
+# ignore le dossier .venv
+.venv

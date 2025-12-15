@@ -1,4 +1,4 @@
-import pandas as pd
+from ..configuration import Configuration
 import requests
 import json
 from typing import Optional
@@ -12,10 +12,8 @@ class CallApi:
     def __init__(self, dataset_id: str) -> None:
         self.dataset_id: str = dataset_id
         self.data: Optional[dict] = None
-        # Charger l'URL de base depuis config.json
-        with open("p_meteo/config.json", "r", encoding="utf-8") as f:
-            config = json.load(f)
-        self.base_url: str = config["url"]
+        self.configuration = Configuration()
+        self.base_url: str =  self.configuration.get_value("url")
 
     def fetch(self) -> None:
         url: str = (

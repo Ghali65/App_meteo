@@ -1,7 +1,7 @@
-import json
-from typing import Any, Dict, List
+from typing import List
 import pandas as pd
 
+from .modules.configuration import Configuration
 from .modules.extract.station_selector import StationSelector
 from .modules.extract.call_api import CallApi
 from .modules.extract.to_dataframe import ToDataFrame
@@ -26,10 +26,8 @@ def main() -> None:
     """
 
     # Charger la configuration
-    with open("p_meteo/config.json", "r", encoding="utf-8") as f:
-        config: Dict[str, Any] = json.load(f)
-
-    csv_path: str = config["csv_path"]
+    configuration = Configuration()
+    csv_path: str = configuration.get_value("csv_path")
 
     # Sélection des stations (une ou plusieurs)
     selector: StationSelector = StationSelector(csv_path)

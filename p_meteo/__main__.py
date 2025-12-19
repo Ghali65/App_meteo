@@ -40,31 +40,39 @@ def main() -> None:
     for dataset_id in dataset_ids:
         print(f"\n=== Traitement de la station {dataset_id} ===")
 
+        '''les classes ExtractCommand, TransformCommand, ShowCommand font partis d'un design pattern command'''
         # 1) Extraction
         df = ExtractCommand(dataset_id, CallApi, ToDataFrame).execute()
 
-        # 2) Transformation
+        # 2) Transformation via TransformCommand
         transformers = [
+            TVille,
+            TStationId,
             TTemperature,
             THeureMaj,
-            TPression,
-            TStationId,
-            TVille,
             THumidite,
+            TPression,
         ]
+
         transformed = TransformCommand(df, transformers).execute()
 
-        # 3) Affichage
-        viewers = [
-            SVille(transformed[4]),
-            SStationId(transformed[3]),
-            STemperature(transformed[0]),
-            SHumidite(transformed[5]),
-            SPression(transformed[2]),
-            SHeureMaj(transformed[1]),
+        # 3) Shower automatiques
+        shower_classes = [
+            SVille,
+            SStationId,
+            STemperature,
+            SHeureMaj,
+            SHumidite,
+            SPression,
         ]
 
-        ShowCommand(viewers, LinkedList, Link).execute()
+        showers = [
+            viewer_class(transformed_obj)
+            for transformed_obj, viewer_class in zip(transformed, shower_classes)
+        ]
+
+        # 4) Affichage
+        ShowCommand(showers, LinkedList, Link).execute()
 
 
 if __name__ == "__main__":

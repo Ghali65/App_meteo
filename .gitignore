@@ -3,7 +3,7 @@ CSV/
 
 # Ignore les fichiers
 __pycache__/
-App_test.ipynb
+p_meteo/App_test.ipynb
 
 # ignore le dossier .venv
 .venv

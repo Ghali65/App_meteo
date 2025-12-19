@@ -11,7 +11,8 @@ class SHeureMaj:
             record (Record): Instance contenant les données météo.
         """
         self.record = record
-
+        
+    "display est un décorateur"
     def display(self) -> None:
         print("🕒 Dernière mise à jour :", self.record.heure_maj())
 

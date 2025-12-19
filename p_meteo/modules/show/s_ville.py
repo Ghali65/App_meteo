@@ -12,5 +12,6 @@ class SVille:
         """
         self.record = record
 
+    "display est un décorateur"
     def display(self) -> None:
         print("🏙️ Ville :", self.record.ville())

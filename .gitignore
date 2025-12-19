@@ -1,8 +1,10 @@
 # Ignore le dossier CSV
 CSV/
 
-# Ignore les fichiers compilés Python
+# Ignore les fichiers
 __pycache__/
+App_test.ipynb
 
 # ignore le dossier .venv
 .venv
+

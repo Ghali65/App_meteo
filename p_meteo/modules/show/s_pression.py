@@ -11,6 +11,7 @@ class SPression:
             record (Record): Instance contenant les données météo.
         """
         self.record = record
-
+        
+    "display est un décorateur"
     def display(self) -> None:
         print("📊 Pression :", self.record.pression())

@@ -12,5 +12,6 @@ class STemperature:
         """
         self.record = record
 
+    "display est un décorateur"
     def display(self) -> None:
         print("🌡️ Température :", self.record.temperature())

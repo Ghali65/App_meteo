@@ -3,11 +3,11 @@ from modules.transform.t_humidite import THumidite
 
 
 class St_Humidite:
-    def __init__(self, transform: THumidite) -> None:
-        self.humidite: float | None = transform.humidite()
+    def __init__(self, record: THumidite) -> None:
+        self.record: float | None = record
 
     def display(self) -> None:
-        if self.humidite is not None:
-            st.metric(label="💧 Humidité", value=f"{self.humidite} %")
+        if self.record.humidite is not None:
+            st.metric(label="💧 Humidité", value=f"{self.record.humidite} %")
         else:
             st.warning("Humidité non disponible.")

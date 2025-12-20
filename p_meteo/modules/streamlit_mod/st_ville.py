@@ -1,13 +1,11 @@
 import streamlit as st
-from modules.transform.t_ville import TVille
-
 
 class St_Ville:
-    def __init__(self, transform: TVille) -> None:
-        self.ville: str | None = transform.ville()
+    def __init__(self, record):
+        self.record = record
 
-    def display(self) -> None:
-        if self.ville:
-            st.write(f"🏙️ Ville : **{self.ville}**")
+    def display(self):
+        if self.record.ville:
+            st.write(f"🏙️ Ville : **{self.record.ville}**")
         else:
             st.warning("Ville non disponible.")

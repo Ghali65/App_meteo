@@ -12,7 +12,7 @@ class SStationId:
         """
         self.record = record
         
-    "display est un décorateur"
+    "display est un pattern décorateur"
     def display(self) -> None:
-        print("🆔 Station :", self.record.station_id())
+        print("🆔 Station :", self.record.station_id)
 

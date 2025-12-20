@@ -12,7 +12,7 @@ class SHumidite:
         """
         self.record = record
         
-    "display est un décorateur"
+    "display est un pattern décorateur"
     def display(self) -> None:
-        print("💧 Humidité :", self.record.humidite())
+        print("💧 Humidité :", self.record.humidite)
 

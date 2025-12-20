@@ -1,29 +1,26 @@
-# modules/command.py
+from .show.build_viewer_list import build_viewer_list
+from .transform.record import Record
 
 class Command:
-    """
-    Interface de base pour toutes les commandes.
-    Chaque commande doit implémenter execute().
-    """
     def execute(self):
         raise NotImplementedError("La méthode execute() doit être implémentée.")
 
 
 class ExtractCommand(Command):
-    """
-    Commande d'extraction : exécute CallApi + fetch + ToDataFrame.
-    """
-    def __init__(self, dataset_id, CallApi, ToDataFrame):
+    def __init__(self, dataset_id, CallApi, ToDataFrame, mapping):
         self.dataset_id = dataset_id
         self.CallApi = CallApi
         self.ToDataFrame = ToDataFrame
+        self.mapping = mapping
         self.df = None
 
     def execute(self):
         api = self.CallApi(self.dataset_id)
         api.fetch()
 
-        converter = self.ToDataFrame(api.data, self.dataset_id)
+        ville = self.mapping.get(self.dataset_id, "Inconnue")
+
+        converter = self.ToDataFrame(api.data, self.dataset_id, ville)
         self.df = converter.convert()
 
         return self.df
@@ -31,37 +28,25 @@ class ExtractCommand(Command):
 
 class TransformCommand(Command):
     """
-    Commande de transformation : exécute toutes les classes T*.
+    Applique chaque transformer sur un même Record enrichi.
     """
     def __init__(self, df, transformers):
         self.df = df
         self.transformers = transformers
-        self.results = []
 
     def execute(self):
+        record = Record()
+
         for transformer in self.transformers:
-            self.results.append(transformer(self.df))
-        return self.results
+            record = transformer(record, self.df)
+
+        return record
 
 
 class ShowCommand(Command):
-    """
-    Commande d'affichage : construit et exécute la LinkedList.
-    """
-    def __init__(self, viewers, LinkedList, Link):
-        self.viewers = viewers
-        self.LinkedList = LinkedList
-        self.Link = Link
+    def __init__(self, record):
+        self.record = record
 
     def execute(self):
-        if not self.viewers:
-            return
-
-        # Création de la liste chaînée
-        linked_list = self.LinkedList(self.Link(self.viewers[0]))
-
-        for viewer in self.viewers[1:]:
-            linked_list.ajouter_maillon(self.Link(viewer))
-
-        # Exécution du pipeline d'affichage
+        linked_list = build_viewer_list(self.record)
         linked_list.afficher_liste()

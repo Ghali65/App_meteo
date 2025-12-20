@@ -12,6 +12,6 @@ class SPression:
         """
         self.record = record
         
-    "display est un décorateur"
+    "display est un  pattern décorateur"
     def display(self) -> None:
-        print("📊 Pression :", self.record.pression())
+        print("📊 Pression :", self.record.pression)

@@ -1,23 +1,16 @@
 import pandas as pd
-from typing import Union
-from ._get_value import get_value
 
 class TStationId:
-    """
-    Classe pour encapsuler un DataFrame météo et fournir des méthodes
-    d'affichage ou de traitement.
-    """
 
-    def __init__(self, df: pd.DataFrame) -> None:
+    def __call__(self, record, df: pd.DataFrame):
         """
-        Initialise la classe avec un DataFrame.
+        Enrichit record.station_id.
+        """
 
-        Args:
-            df (pd.DataFrame): Données station météo choisies.
-        """
         if df.empty:
             print("⚠️ Le DataFrame fourni est vide.")
-        self.df: pd.DataFrame = df
+            record.station_id = None
+            return record
 
-    def station_id(self) -> Union[str, None]:
-        return get_value(self.df,"dataset_id")
+        record.station_id = df["dataset_id"].iloc[0]
+        return record

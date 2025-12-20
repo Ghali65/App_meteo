@@ -1,24 +1,16 @@
 import pandas as pd
-from typing import Union
-from ._get_value import get_value
 
 class TPression:
-    """
-    Classe pour encapsuler un DataFrame météo et fournir des méthodes
-    d'affichage ou de traitement.
-    """
 
-    def __init__(self, df: pd.DataFrame) -> None:
+    def __call__(self, record, df: pd.DataFrame):
         """
-        Initialise la classe avec un DataFrame.
+        Enrichit record.pression.
+        """
 
-        Args:
-            df (pd.DataFrame): Données station météo choisies.
-        """
         if df.empty:
             print("⚠️ Le DataFrame fourni est vide.")
-        self.df: pd.DataFrame = df
+            record.pression = None
+            return record
 
-    def pression(self) -> Union[int, float, None]:
-        return get_value(self.df,"pression")
-
+        record.pression = df["pression"].iloc[0]
+        return record

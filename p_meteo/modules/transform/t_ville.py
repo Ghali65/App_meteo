@@ -1,23 +1,16 @@
 import pandas as pd
-from typing import Union
-from ._get_value import get_value
 
 class TVille:
-    """
-    Classe pour encapsuler un DataFrame météo et fournir des méthodes
-    d'affichage ou de traitement.
-    """
 
-    def __init__(self, df: pd.DataFrame) -> None:
+    def __call__(self, record, df: pd.DataFrame):
         """
-        Initialise la classe avec un DataFrame.
+        Enrichit record.ville.
+        """
 
-        Args:
-            df (pd.DataFrame): Données station météo choisies.
-        """
         if df.empty:
             print("⚠️ Le DataFrame fourni est vide.")
-        self.df: pd.DataFrame = df
+            record.ville = None
+            return record
 
-    def ville(self) -> Union[str, None]:
-        return get_value(self.df, "Ville")
+        record.ville = df["Ville"].iloc[0]
+        return record

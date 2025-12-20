@@ -1,18 +1,16 @@
 import pandas as pd
-from typing import Union
-from ._get_value import get_value
+
 class THumidite:
 
-    def __init__(self, df: pd.DataFrame) -> None:
+    def __call__(self, record, df: pd.DataFrame):
         """
-        Initialise la classe avec un DataFrame.
+        Enrichit record.humidite.
+        """
 
-        Args:
-            df (pd.DataFrame): Données station météo choisies.
-        """
         if df.empty:
             print("⚠️ Le DataFrame fourni est vide.")
-        self.df: pd.DataFrame = df
+            record.humidite = None
+            return record
 
-    def humidite(self) -> Union[int, float, None]:
-        return get_value(self.df,"humidite")
+        record.humidite = df["humidite"].iloc[0]
+        return record

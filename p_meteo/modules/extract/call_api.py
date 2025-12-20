@@ -1,6 +1,5 @@
 from ..configuration import Configuration
 import requests
-import json
 from typing import Optional
 
 
@@ -27,10 +26,6 @@ class CallApi:
             response = requests.get(url)
             response.raise_for_status()
             self.data = response.json()
-            # Ajout de la clé "ville" dans chaque résultat
-            if self.data and "results" in self.data:
-               for item in self.data["results"]:
-                    item["ville"] = "Toulouse"
         except requests.RequestException as error:
             print(f"Erreur lors de la requête API : {error}")
             self.data = None

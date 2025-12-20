@@ -12,6 +12,6 @@ class SVille:
         """
         self.record = record
 
-    "display est un décorateur"
+    "display est un design pattern décorateur"
     def display(self) -> None:
-        print("🏙️ Ville :", self.record.ville())
+        print("🏙️ Ville :", self.record.ville)

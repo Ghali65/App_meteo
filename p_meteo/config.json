@@ -1,4 +1,7 @@
 {
   "csv_path": "p_meteo/liste_station/meteo_ids.csv",
-  "url": "https://data.toulouse-metropole.fr/api/explore/v2.1/catalog/datasets/"
+  "url": "https://data.toulouse-metropole.fr/api/explore/v2.1/catalog/datasets/",
+  "default_kpis": ["ville", "temperature", "heure", "humidite", "pression"], 
+  "selected_kpis": ["ville", "temperature", "heure", "humidite", "pression"]
+
 }

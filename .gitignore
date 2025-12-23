@@ -2,9 +2,21 @@
 CSV/
 
 # Ignore les fichiers
-__pycache__/
 *.ipynb
+.vscode/
 
-# ignore le dossier .venv
+# ignore les dossier
 .venv
+__pycache__/
 
+# Logs et fichiers temporaires
+*.log
+*.tmp
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers de test ou de debug
+*.coverage
+.cache/

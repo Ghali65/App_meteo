@@ -6,7 +6,6 @@ from typing import Dict, List
 # Extract / Transform
 from modules.extract.call_api import CallApi
 from modules.extract.to_dataframe import ToDataFrame
-
 from modules.transform.t_temperature import TTemperature
 from modules.transform.t_ville import TVille
 from modules.transform.t_humidite import THumidite

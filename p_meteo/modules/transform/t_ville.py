@@ -2,7 +2,7 @@ import pandas as pd
 
 class TVille:
 
-    def __call__(self, record, df: pd.DataFrame):
+    def __call__(self, df: pd.DataFrame, record):
         """
         Enrichit record.ville.
         """
@@ -12,5 +12,5 @@ class TVille:
             record.ville = None
             return record
 
-        record.ville = df["Ville"].iloc[0]
+        record.ville = df["ville"].iloc[0]
         return record

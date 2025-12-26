@@ -12,6 +12,5 @@ class STemperature:
         """
         self.record = record
 
-    "display est un design pattern décorateur"
     def display(self) -> None:
         print("🌡️ Température :", self.record.temperature)

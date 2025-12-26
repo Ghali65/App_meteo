@@ -12,7 +12,6 @@ class SHeureMaj:
         """
         self.record = record
         
-    "display est un pattern décorateur"
     def display(self) -> None:
         print("🕒 Dernière mise à jour :", self.record.heure_maj)
 

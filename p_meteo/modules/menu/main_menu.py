@@ -1,13 +1,8 @@
 import os
-import json
+from ..configuration import Configuration
 
 def clear_console():
     os.system("cls" if os.name == "nt" else "clear")
-
-
-def load_config():
-    with open("p_meteo/config.json", "r", encoding="utf-8") as f:
-        return json.load(f)
 
 
 def main_menu():
@@ -16,10 +11,13 @@ def main_menu():
     """
     while True:
         clear_console()
-        config = load_config()
+        config = Configuration()
 
-        default_kpis = config.get("default_kpis", [])
-        selected_kpis = config.get("selected_kpis", default_kpis)
+        # On récupère les KPIs par défaut (noms techniques)
+        default_kpis = config.get_value("default_kpis")
+
+        # On récupère les labels lisibles
+        available_kpis = config.get_available_kpis()  # dict : {technique: label}
 
         print("===========================================")
         print("        🌤️  APPLICATION METEO  🌤️")
@@ -28,12 +26,13 @@ def main_menu():
         print("Veuillez choisir une option :\n")
 
         print("1) Afficher la météo")
-        print("   → Utilise les KPIs par défaut :")
-        for kpi in selected_kpis:
-            print(f"     - {kpi}")
+        print("   → KPIs utilisés :")
+        for kpi in default_kpis:
+            label = available_kpis.get(kpi, kpi)
+            print(f"     - {label}")
 
         print("\n2) Sélectionner les KPIs à afficher")
-        print("   → Choisissez parmi tous les KPIs disponibles")
+        print("   → Modifier la liste des KPIs utilisés")
 
         print("\n3) Mode administrateur")
         print("   → Ajouter une station météo")
@@ -44,7 +43,7 @@ def main_menu():
         choix = input("Votre choix : ").strip()
 
         if choix == "1":
-            return "show_weather"   # Le main saura quoi faire
+            return "show_weather"
         elif choix == "2":
             return "select_kpis"
         elif choix == "3":

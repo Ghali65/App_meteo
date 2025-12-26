@@ -1,21 +1,19 @@
 class Record:
     """
     Objet métier contenant toutes les données météo transformées.
-    Enrichi progressivement par les classes TXXX.
+    Les attributs sont créés dynamiquement en fonction des KPIs.
     """
 
-    def __init__(self):
+    def __init__(self, kpi_mapping: dict):
+        # Champs génériques
         self.ville = None
-        self.station_id = None
-        self.temperature = None
-        self.heure_maj = None
-        self.humidite = None
-        self.pression = None
+        self.dataset_id = None
+        self.heure_maj = None  # ← IMPORTANT : viewer en dépend
 
-    # Accesseurs (optionnels mais propres)
-    def get_ville(self): return self.ville
-    def get_station_id(self): return self.station_id
-    def get_temperature(self): return self.temperature
-    def get_heure_maj(self): return self.heure_maj
-    def get_humidite(self): return self.humidite
-    def get_pression(self): return self.pression
+        # Création dynamique des attributs pour chaque KPI
+        for kpi_name in kpi_mapping.keys():
+            setattr(self, kpi_name, None)
+
+    def __repr__(self):
+        attrs = ", ".join(f"{k}={v}" for k, v in self.__dict__.items())
+        return f"Record({attrs})"

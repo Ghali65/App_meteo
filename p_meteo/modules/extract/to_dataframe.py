@@ -16,7 +16,7 @@ class ToDataFrame:
         if self.data and "results" in self.data:
             df = pd.DataFrame(self.data["results"])
             df["dataset_id"] = self.dataset_id
-            df["Ville"] = self.ville
+            df["ville"] = self.ville
             return df
         
         print("Aucune donnée disponible ou format inattendu.")

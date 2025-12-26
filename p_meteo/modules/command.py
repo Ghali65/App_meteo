@@ -1,5 +1,6 @@
 from .show.build_viewer_list import build_viewer_list
 from .transform.record import Record
+from .configuration import Configuration
 
 class Command:
     def execute(self):
@@ -35,18 +36,24 @@ class TransformCommand(Command):
         self.transformers = transformers
 
     def execute(self):
-        record = Record()
+        # On récupère le mapping KPI pour créer un Record dynamique
+        config = Configuration()
+        kpi_mapping = config.get_kpi_mapping()
 
+        # Record dynamique : un attribut par KPI
+        record = Record(kpi_mapping)
+
+        # Application des transformateurs (df en premier, record en second)
         for transformer in self.transformers:
-            record = transformer(record, self.df)
+            record = transformer(self.df, record)
 
         return record
 
-
 class ShowCommand(Command):
-    def __init__(self, record):
+    def __init__(self, record, selected_kpis):
         self.record = record
+        self.selected_kpis = selected_kpis
 
     def execute(self):
-        linked_list = build_viewer_list(self.record)
+        linked_list = build_viewer_list(self.record, self.selected_kpis)
         linked_list.afficher_liste()

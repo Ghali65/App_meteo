@@ -1,28 +1,23 @@
+from ..configuration import Configuration
 from ..viewer_factory import ViewerFactory
 from ..chained.linked_list import Link, LinkedList
 
-# Ordre d'affichage
-VIEWERS = [
-    "ville",
-    "station",
-    "heure",
-    "temperature",
-    "humidite",
-    "pression"
-]
+def build_viewer_list(record, selected_kpis) -> LinkedList:
+    """
+    Construit la liste chaînée des viewers météo
+    en utilisant la liste de KPIs passée par main().
+    """
 
-def build_viewer_list(record) -> LinkedList:
-    """
-    Construit la liste chaînée complète des viewers météo.
-    """
+    if not selected_kpis:
+        raise ValueError("Aucun KPI sélectionné")
 
     # Premier viewer
-    first_viewer = ViewerFactory.create(VIEWERS[0], record)
+    first_viewer = ViewerFactory.create(selected_kpis[0], record)
     linked_list = LinkedList(Link(first_viewer))
 
     # Viewers suivants
-    for viewer_type in VIEWERS[1:]:
-        viewer = ViewerFactory.create(viewer_type, record)
+    for kpi_name in selected_kpis[1:]:
+        viewer = ViewerFactory.create(kpi_name, record)
         linked_list.ajouter_maillon(Link(viewer))
 
     return linked_list

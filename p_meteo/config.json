@@ -1,7 +1,72 @@
 {
-  "csv_path": "p_meteo/liste_station/meteo_ids.csv",
-  "url": "https://data.toulouse-metropole.fr/api/explore/v2.1/catalog/datasets/",
-  "default_kpis": ["ville", "temperature", "heure", "humidite", "pression"], 
-  "selected_kpis": ["ville", "temperature", "heure", "humidite", "pression"]
+    "csv_path": "p_meteo/liste_station/meteo_ids.csv",
 
+    "url": "https://data.toulouse-metropole.fr/api/explore/v2.1/catalog/datasets/",
+
+    "available_kpis": {
+        "ville": "Ville",
+        "heure_maj": "Dernière mise à jour",
+        "temperature": "Température",
+        "humidite": "Humidité",
+        "pression": "Pression",
+        "pluie": "Pluie",
+        "pluie_max": "Pluie max",
+        "vent_moyen": "Vent moyen",
+        "rafale_max": "Rafale max",
+        "direction_vent_max": "Direction vent max",
+        "direction_vent_max_deg": "Direction vent max en degrés",
+        "direction_vent_moyen": "Direction vent moyen"
+    },
+    "default_kpis": [
+        "ville",
+        "heure_maj",
+        "temperature",
+        "humidite",
+        "pression"
+    ],
+
+    "selected_kpis": [
+        "ville",
+        "heure",
+        "temperature",
+        "humidite",
+        "pression",
+        "pluie",
+        "pluie_max",
+        "vent_moyen",
+        "rafale_max",
+        "direction_vent_max",
+        "direction_vent_max_deg",
+        "direction_vent_moyen"
+    ],
+
+    "kpi_mapping": {
+        "ville": "ville",
+        "heure_maj": "heure_de_paris",
+        "temperature": "temperature_en_degre_c",
+        "humidite": "humidite",
+        "pression": "pression",
+        "pluie": "pluie",
+        "pluie_max": "pluie_intensite_max",
+        "vent_moyen": "force_moyenne_du_vecteur_vent",
+        "rafale_max": "force_rafale_max",
+        "direction_vent_max": "direction_du_vecteur_de_vent_max",
+        "direction_vent_max_deg": "direction_du_vecteur_de_vent_max_en_degres",
+        "direction_vent_moyen": "direction_du_vecteur_vent_moyen"
+    },
+
+    "viewer_mapping": {
+        "ville": "SVille",
+        "heure_maj": "SHeureMaj",
+        "temperature": "STemperature",
+        "humidite": "SHumidite",
+        "pression": "SPression",
+        "pluie": "SPluie",
+        "pluie_max": "SPluieMax",
+        "vent_moyen": "SVentMoyen",
+        "rafale_max": "SRafaleMax",
+        "direction_vent_max": "SDirectionVentMax",
+        "direction_vent_max_deg": "SDirectionVentMaxDeg",
+        "direction_vent_moyen": "SDirectionVentMoyen"
+    }
 }

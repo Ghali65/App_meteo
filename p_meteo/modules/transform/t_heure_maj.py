@@ -3,7 +3,7 @@ from datetime import datetime
 
 class THeureMaj:
 
-    def __call__(self, record, df: pd.DataFrame):
+    def __call__(self, df: pd.DataFrame, record):
         """
         Enrichit record.heure_maj à partir du DataFrame.
         """
@@ -14,10 +14,11 @@ class THeureMaj:
             return record
 
         raw = df["heure_de_paris"].iloc[0]
-
+        print(raw)
         try:
             dt = datetime.fromisoformat(raw)
             record.heure_maj = dt.strftime("%d-%m-%Y %Hh%M")
+
         except Exception:
             record.heure_maj = raw  # Valeur brute en cas d’erreur
 

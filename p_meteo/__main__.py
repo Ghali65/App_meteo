@@ -4,6 +4,7 @@ import pandas as pd
 # Menu
 from .modules.menu.main_menu import main_menu
 from .modules.menu.kpi_menu import run_kpi_selection_menu
+from .modules.menu.admin_menu import run_admin_menu
 
 # Configuration
 from .modules.configuration import Configuration

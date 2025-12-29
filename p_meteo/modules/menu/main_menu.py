@@ -1,8 +1,7 @@
 import os
 from ..configuration import Configuration
-
-def clear_console():
-    os.system("cls" if os.name == "nt" else "clear")
+from ..utils.safe_input_choice import safe_input_choice
+from ..utils.console_utils import clear_console
 
 
 def main_menu():
@@ -40,7 +39,7 @@ def main_menu():
 
         print("\n4) Quitter l'application\n")
 
-        choix = input("Votre choix : ").strip()
+        choix = safe_input_choice("Votre choix : ", ["1", "2", "3", "4"])
 
         if choix == "1":
             return "show_weather"

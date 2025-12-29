@@ -1,41 +1,58 @@
 import os
+from typing import List, Optional
 from ..configuration import Configuration
+from ..utils.selection_parser import parse_multi_selection
+from ..utils.console_utils import clear_console
 
-def clear_console():
-    os.system("cls" if os.name == "nt" else "clear")
 
-
-def run_kpi_selection_menu():
-    clear_console()
+def run_kpi_selection_menu() -> Optional[List[str]]:
+    """
+    Menu de sélection des KPIs.
+    Permet une saisie multiple (1,3-5,7), confirmation utilisateur,
+    et gestion robuste des erreurs.
+    Retourne une liste de noms techniques de KPIs ou None si annulation.
+    """
     config = Configuration()
-
-    # Liste complète des KPIs disponibles
     all_kpis = list(config.get_available_kpis().keys())
+    max_index = len(all_kpis)
 
-    print("===========================================")
-    print("     🔧  CONFIGURATION DES KPIs METEO")
-    print("===========================================\n")
+    while True:
+        clear_console()
 
-    print("Voici les KPIs disponibles :\n")
-    for i, kpi in enumerate(all_kpis, start=1):
-        print(f"{i}) {kpi}")
+        print("===========================================")
+        print("     🔧  CONFIGURATION DES KPIs METEO")
+        print("===========================================\n")
 
-    print("\nSélectionnez les KPIs à afficher (ex: 1,4,5) :")
-    choix = input("> ").strip()
+        print("Voici les KPIs disponibles :\n")
+        for i, kpi in enumerate(all_kpis, start=1):
+            print(f"{i}) {kpi}")
 
-    # Extraction des indices valides
-    indices = [int(i) for i in choix.split(",") if i.strip().isdigit()]
-    new_selection = [all_kpis[i - 1] for i in indices if 1 <= i <= len(all_kpis)]
+        print("\nSélectionnez les KPIs (ex: 1,4,6-8) :")
+        choix = input("> ").strip()
 
-    if not new_selection:
-        print("\n❌ Aucun KPI valide sélectionné.")
-        input("\nAppuyez sur Entrée pour continuer.")
-        return None  # IMPORTANT : on retourne None si rien n'est sélectionné
+        # Parsing robuste via module commun
+        indices = parse_multi_selection(choix, max_index)
 
-    # On retourne simplement la liste des KPIs sélectionnés
-    print("\n✅ KPIs sélectionnés :")
-    for kpi in new_selection:
-        print(f" - {kpi}")
+        if not indices:
+            print(
+                f"\n❌ Format invalide. Utilisez des nombres entre 1 et {max_index}, "
+                "séparés par des virgules ou des plages avec '-'. Exemple : 1,3-5,7"
+            )
+            input("\nAppuyez sur Entrée pour réessayer.")
+            continue
 
-    input("\nAppuyez sur Entrée pour continuer.")
-    return new_selection
+        # Conversion indices → noms techniques
+        new_selection = [all_kpis[i - 1] for i in indices]
+
+        # Confirmation
+        print("\nVous avez sélectionné :")
+        for kpi in new_selection:
+            print(f" - {kpi}")
+
+        confirm = input("\nConfirmer ? (O/N) : ").strip().upper()
+
+        if confirm == "O":
+            return new_selection
+
+        print("\n🔁 Recommençons la sélection…")
+        input("Appuyez sur Entrée pour continuer.")

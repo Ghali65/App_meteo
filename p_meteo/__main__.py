@@ -133,18 +133,25 @@ def run_weather_pipeline(selected_kpis):
     print("\nAppuyez sur Entrée pour relancer avec les mêmes KPIs.")
     print("Tapez M pour revenir au menu principal.")
     print("Ou tapez Q pour quitter.")
-    action = input("> ").strip().upper()
-    print("⏎ Action utilisateur :", action)
 
-    if action == "Q":
-        return False  # Quitter l'application
+    while True:
+        action = input("> ").strip().upper()
+        print("⏎ Action utilisateur :", action)
 
-    if action == "M":
-        return "MENU"  # Signal spécial pour revenir au menu
+        if action == "":
+            return True  # Relancer avec les mêmes KPIs
 
-    return True  # Relancer avec les mêmes KPIs
+        if action == "M":
+            return "MENU"  # Retour au menu principal
+
+        if action == "Q":
+            return False  # Quitter l'application
+
+        # Si on arrive ici → saisie invalide
+        print("\n❌ Saisie invalide.")
+        print("Veuillez taper Entrée, M ou Q.")
+
 
 
 if __name__ == "__main__":
     main()
-

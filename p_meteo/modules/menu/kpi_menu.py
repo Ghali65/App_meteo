@@ -1,4 +1,3 @@
-import os
 from typing import List, Optional
 from ..configuration import Configuration
 from ..utils.selection_parser import parse_multi_selection

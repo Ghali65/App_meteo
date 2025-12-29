@@ -1,4 +1,3 @@
-import os
 from ..configuration import Configuration
 from ..utils.safe_input_choice import safe_input_choice
 from ..utils.console_utils import clear_console

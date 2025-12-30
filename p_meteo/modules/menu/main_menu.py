@@ -30,11 +30,12 @@ def main_menu():
             print(f"     - {label}")
 
         print("\n2) Sélectionner les KPIs à afficher")
-        print("   → Modifier la liste des KPIs utilisés")
+        print("   → Personnaliser la liste des KPIS à afficher")
 
         print("\n3) Mode administrateur")
         print("   → Ajouter une station météo")
-        print("   → Gérer les données locales")
+        print("   → Supprimer une station météo")
+        print("   → Modifier une station météo")
 
         print("\n4) Quitter l'application\n")
 

@@ -9,15 +9,43 @@ def ask_yes_no(prompt: str) -> bool:
             return choix == "O"
         print("❌ Réponse invalide. Tapez O ou N.")
 
-def ask_int_in_range(prompt: str, min_val: int, max_val: int) -> int:
+
+def safe_input_choice(
+    prompt: str,
+    valid_choices: list[str],
+    cast_to_int: bool = False
+):
     """
-    Demande un entier dans une plage donnée.
-    Boucle tant que la saisie n'est pas valide.
+    Demande une saisie utilisateur et vérifie qu'elle fait partie des choix valides.
+    Boucle jusqu'à obtenir une valeur correcte.
+
+    Si cast_to_int=True, retourne un int au lieu d'un str.
+    La saisie est automatiquement convertie en majuscules.
     """
     while True:
-        choix = input(prompt).strip()
-        if choix.isdigit():
-            choix = int(choix)
-            if min_val <= choix <= max_val:
-                return choix
-        print(f"❌ Entrez un nombre entre {min_val} et {max_val}.")
+        choix = input(prompt).strip().upper()
+
+        if choix in valid_choices:
+            return int(choix) if cast_to_int else choix
+
+        print(f"\n❌ Saisie invalide : '{choix}'. Choix possibles : {', '.join(valid_choices)}.\n")
+
+
+def safe_input_back_or_choice(
+    prompt: str,
+    valid_choices: list[str],
+    back_value: str = "0",
+    cast_to_int: bool = False
+):
+    """
+    Variante de safe_input_choice permettant d'inclure un choix 'retour'.
+    Retourne None si l'utilisateur choisit back_value.
+    """
+    valid = [back_value] + valid_choices
+
+    choix = safe_input_choice(prompt, valid, cast_to_int=False)
+
+    if choix == back_value:
+        return None
+
+    return int(choix) if cast_to_int else choix

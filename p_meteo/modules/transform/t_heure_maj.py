@@ -14,7 +14,6 @@ class THeureMaj:
             return record
 
         raw = df["heure_de_paris"].iloc[0]
-        print(raw)
         try:
             dt = datetime.fromisoformat(raw)
             record.heure_maj = dt.strftime("%d-%m-%Y %Hh%M")

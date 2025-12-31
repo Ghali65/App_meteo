@@ -83,20 +83,22 @@ def main() -> None:
                 run_admin_menu()
                 continue
 
-            else:
-                print("❌ Action inconnue.")
-                continue
-
         # Lancement du pipeline météo avec les KPIs sélectionnés
         keep_running = run_weather_pipeline(selected_kpis)
 
-        if keep_running == "MENU": 
+        if keep_running is True:
+            # Relancer avec les mêmes KPIs
+            custom_mode = True
+            continue
+
+        if keep_running == "MENU":
             custom_mode = False
-            continue 
-        
-        if not keep_running: 
-            print("👋 Au revoir !") 
+            continue
+
+        if keep_running is False:
+            print("\n👋 Au revoir !\n")
             break
+
 
 def run_weather_pipeline(selected_kpis):
 
@@ -111,9 +113,13 @@ def run_weather_pipeline(selected_kpis):
     selector = StationSelector(csv_path)
     dataset_ids: List[str] = selector.choose()
 
+    # Gestion du retour Menu principal :
+    if dataset_ids is None:
+        return "MENU"
+
     # Pipeline pour chaque station
     for dataset_id in dataset_ids:
-        print(f"\n=== Traitement de la station {dataset_id} ===")
+        print(f"\n=== Traitement de la station {dataset_id} ===\n")
 
         # 1) Extraction
         df = ExtractCommand(dataset_id, CallApi, ToDataFrame, mapping).execute()
@@ -131,12 +137,13 @@ def run_weather_pipeline(selected_kpis):
         ShowCommand(record, selected_kpis).execute()
 
     # Pause utilisateur
+    print("\n=====================================================================")
     print("\nAppuyez sur Entrée pour relancer avec les mêmes KPIs.")
-    print("Tapez M pour revenir au menu principal.")
-    print("Ou tapez Q pour quitter.")
-
+    print("\nTapez M pour revenir au menu principal.")
+    print("\nOu tapez Q pour quitter.")
+    print("\n=====================================================================\n")
     while True:
-        action = input("> ").strip().upper()
+        action = input("Votre choix : ").strip().upper()
         print("⏎ Action utilisateur :", action)
 
         if action == "":

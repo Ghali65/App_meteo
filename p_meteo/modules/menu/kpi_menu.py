@@ -2,6 +2,7 @@ from typing import List, Optional
 from ..configuration import Configuration
 from ..utils.selection_parser import parse_multi_selection
 from ..utils.console_utils import clear_console
+from ..utils.input_utils import safe_input_back_or_choice, ask_yes_no
 
 
 def run_kpi_selection_menu() -> Optional[List[str]]:
@@ -26,10 +27,15 @@ def run_kpi_selection_menu() -> Optional[List[str]]:
         for i, kpi in enumerate(all_kpis, start=1):
             print(f"{i}) {kpi}")
 
-        print("\nSélectionnez les KPIs (ex: 1,4,6-8) :")
-        choix = input("> ").strip()
+        print("\n0) ⬅️  Retour\n")
 
-        # Parsing robuste via module commun
+        # Saisie libre avec retour
+        choix = input("Sélectionnez les KPIs (ex: 1,4,6-8) : ").strip()
+
+        if choix=="0":
+            return None  # retour
+
+        # Parsing multiple
         indices = parse_multi_selection(choix, max_index)
 
         if not indices:
@@ -48,9 +54,7 @@ def run_kpi_selection_menu() -> Optional[List[str]]:
         for kpi in new_selection:
             print(f" - {kpi}")
 
-        confirm = input("\nConfirmer ? (O/N) : ").strip().upper()
-
-        if confirm == "O":
+        if ask_yes_no("\nConfirmer ? (O/N) : "):
             return new_selection
 
         print("\n🔁 Recommençons la sélection…")

@@ -1,5 +1,5 @@
 from ..configuration import Configuration
-from ..utils.safe_input_choice import safe_input_choice
+from ..utils.input_utils import safe_input_choice
 from ..utils.console_utils import clear_console
 
 
@@ -37,9 +37,9 @@ def main_menu():
         print("   → Supprimer une station météo")
         print("   → Modifier une station météo")
 
-        print("\n4) Quitter l'application\n")
+        print("\nQ) ❌  Quitter l'application\n")
 
-        choix = safe_input_choice("Votre choix : ", ["1", "2", "3", "4"])
+        choix = safe_input_choice("Votre choix : ", ["1", "2", "3", "Q"])
 
         if choix == "1":
             return "show_weather"
@@ -47,9 +47,6 @@ def main_menu():
             return "select_kpis"
         elif choix == "3":
             return "admin_mode"
-        elif choix == "4":
-            print("\nAu revoir !")
-            exit(0)
-        else:
-            print("\n❌ Choix invalide. Appuyez sur Entrée pour réessayer.")
-            input()
+        elif choix == "Q":
+            print("\n👋 Au revoir !\n")
+            exit()

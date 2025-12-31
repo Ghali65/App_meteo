@@ -4,6 +4,7 @@ CSV/
 # Ignore les fichiers
 *.ipynb
 .vscode/
+scan_imports.py
 
 # ignore les dossier
 .venv

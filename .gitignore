@@ -1,10 +1,12 @@
-# Ignore le dossier CSV
+# Ignore les dossier :
 CSV/
+.ruff_cache/
 
 # Ignore les fichiers
 *.ipynb
 .vscode/
 scan_imports.py
+imports.txt
 
 # ignore les dossier
 .venv

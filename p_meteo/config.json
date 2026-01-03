@@ -27,7 +27,7 @@
 
     "selected_kpis": [
         "ville",
-        "heure",
+        "heure_maj",
         "temperature",
         "humidite",
         "pression",

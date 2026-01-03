@@ -2,7 +2,7 @@ from typing import List, Optional
 from ..configuration import Configuration
 from ..utils.selection_parser import parse_multi_selection
 from ..utils.console_utils import clear_console
-from ..utils.input_utils import safe_input_back_or_choice, ask_yes_no
+from ..utils.input_utils import ask_yes_no
 
 
 def run_kpi_selection_menu() -> Optional[List[str]]:
@@ -13,7 +13,8 @@ def run_kpi_selection_menu() -> Optional[List[str]]:
     Retourne une liste de noms techniques de KPIs ou None si annulation.
     """
     config = Configuration()
-    all_kpis = list(config.get_available_kpis().keys())
+    available_kpis = config.get_available_kpis()
+    all_kpis = list(available_kpis.keys())
     max_index = len(all_kpis)
 
     while True:
@@ -25,7 +26,8 @@ def run_kpi_selection_menu() -> Optional[List[str]]:
 
         print("Voici les KPIs disponibles :\n")
         for i, kpi in enumerate(all_kpis, start=1):
-            print(f"{i}) {kpi}")
+            label = available_kpis.get(kpi, kpi)
+            print(f"{i}) {label}")
 
         print("\n0) ⬅️  Retour\n")
 
@@ -52,7 +54,7 @@ def run_kpi_selection_menu() -> Optional[List[str]]:
         # Confirmation
         print("\nVous avez sélectionné :")
         for kpi in new_selection:
-            print(f" - {kpi}")
+            print(f" - {available_kpis.get(kpi, kpi)}")
 
         if ask_yes_no("\nConfirmer ? (O/N) : "):
             return new_selection

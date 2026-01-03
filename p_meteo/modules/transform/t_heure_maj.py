@@ -16,7 +16,7 @@ class THeureMaj:
         raw = df["heure_de_paris"].iloc[0]
         try:
             dt = datetime.fromisoformat(raw)
-            record.heure_maj = dt.strftime("%d-%m-%Y %Hh%M")
+            record.heure_maj = dt.strftime("%d-%m-%Y à %Hh%M")
 
         except Exception:
             record.heure_maj = raw  # Valeur brute en cas d’erreur

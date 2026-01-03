@@ -1,4 +1,3 @@
-from ..configuration import Configuration
 from ..viewer_factory import ViewerFactory
 from ..chained.linked_list import Link, LinkedList
 

@@ -1,0 +1,165 @@
+import streamlit as st
+
+from modules.configuration import Configuration
+from modules.streamlit_mod.st_admin.st_station_admin import StStationAdmin
+from modules.streamlit_mod.st_admin.st_station_form import st_station_form
+
+
+def show_admin():
+    st.subheader("⚙️ Mode administrateur – Stations météo")
+
+    # Chargement config + CSV
+    config = Configuration()
+    csv_path = config.get_value("csv_path")
+
+    admin = StStationAdmin(csv_path)
+    stations_df  = admin.df  # DataFrame actuel
+
+    # ---------------------------------------------------------
+    # AFFICHAGE DES STATIONS
+    # ---------------------------------------------------------
+    if stations_df .empty:
+        st.info("Aucune station enregistrée pour le moment.")
+    else:
+        st.markdown("### 📋 Stations existantes")
+        st.dataframe(stations_df , use_container_width=True, hide_index=True)
+
+    st.markdown("---")
+
+    # ---------------------------------------------------------
+    # ONGLET AJOUT / MODIF / SUPPRESSION
+    # ---------------------------------------------------------
+    tab_ajout, tab_modif, tab_suppr = st.tabs(["➕ Ajouter", "✏️ Modifier", "🗑️ Supprimer"])
+
+    # ---------------------------------------------------------
+    # AJOUT
+    # ---------------------------------------------------------
+    with tab_ajout:
+        st.markdown("#### ➕ Ajouter une nouvelle station")
+
+        # Affichage d’un message stocké lors du précédent cycle
+        if "admin_add_message" in st.session_state:
+            msg, is_success = st.session_state.pop("admin_add_message")
+            if is_success:
+                st.success(msg)
+            else:
+                st.error(msg)
+
+        # IMPORTANT : clé unique dépendant d’un compteur
+        form_key = st.session_state.get("admin_add_form_key", 0)
+
+        result = st_station_form(stations_df , form_key=f"add_{form_key}")
+
+        if result:
+            ville, dataset_id = result
+            success, msg = admin.add(ville, dataset_id)
+
+            # On stocke le message pour l’afficher après rerun
+            st.session_state["admin_add_message"] = (msg, success)
+
+            # On incrémente la clé pour réinitialiser le formulaire
+            st.session_state["admin_add_form_key"] = form_key + 1
+
+            # On relance l’app
+            st.rerun()
+
+    # ---------------------------------------------------------
+    # MODIFICATION
+    # ---------------------------------------------------------
+    with tab_modif:
+        st.markdown("#### ✏️ Modifier une station existante")
+
+        # Affichage d’un message stocké lors du précédent cycle
+        if "admin_edit_message" in st.session_state:
+            msg, is_success = st.session_state.pop("admin_edit_message")
+            if is_success:
+                st.success(msg)
+            else:
+                st.error(msg)
+
+        if stations_df .empty:
+            st.info("Aucune station à modifier.")
+        else:
+            options = [f"{row['ville']} ({row['dataset_id']})" for _, row in stations_df .iterrows()]
+
+            # Sélecteur de station avec clé unique
+            selection = st.selectbox(
+                "Choisissez une station :",
+                options,
+                key="select_modif"
+            )
+
+            # Si l’utilisateur change de station, on réinitialise le formulaire
+            if "last_edit_selection" not in st.session_state or st.session_state["last_edit_selection"] != selection:
+                st.session_state["admin_edit_form_key"] = 0
+                st.session_state["last_edit_selection"] = selection
+
+            if selection:
+                idx = options.index(selection)
+                row = stations_df .iloc[idx]
+
+                # IMPORTANT : clé unique dépendant d’un compteur
+                form_key = st.session_state.get("admin_edit_form_key", 0)
+
+                result = st_station_form(
+                    stations_df ,
+                    ville_initiale=row["ville"],
+                    dataset_initial=row["dataset_id"],
+                    form_key=f"edit_{idx}_{form_key}"
+                )
+
+                if result:
+                    ville_mod, dataset_mod = result
+                    success, msg = admin.edit(idx, ville_mod, dataset_mod)
+
+                    # Stockage du message pour affichage après rerun
+                    st.session_state["admin_edit_message"] = (msg, success)
+
+                    # Incrémentation pour réinitialiser le formulaire
+                    st.session_state["admin_edit_form_key"] = form_key + 1
+
+                    st.rerun()
+
+    # ---------------------------------------------------------
+    # SUPPRESSION
+    # ---------------------------------------------------------
+    with tab_suppr:
+        st.markdown("#### 🗑️ Supprimer une ou plusieurs stations")
+
+        # Affichage d’un message stocké lors du précédent cycle
+        if "admin_delete_message" in st.session_state:
+            msg, is_success = st.session_state.pop("admin_delete_message")
+            if is_success:
+                st.success(msg)
+            else:
+                st.error(msg)
+
+        if stations_df .empty:
+            st.info("Aucune station à supprimer.")
+        else:
+            options = [f"{row['ville']} ({row['dataset_id']})" for _, row in stations_df .iterrows()]
+            to_delete = st.multiselect(
+                "Sélectionnez les stations :",
+                options,
+                key="delete_select"
+            )
+
+            if to_delete:
+                if st.button("Confirmer la suppression", key="delete_confirm"):
+                    indices = [options.index(sel) for sel in to_delete]
+                    success, msg = admin.delete(indices)
+
+                    # Stockage du message pour affichage après rerun
+                    st.session_state["admin_delete_message"] = (msg, success)
+
+                    st.rerun()
+
+
+    st.markdown("---")
+
+    # ---------------------------------------------------------
+    # RETOUR MENU PRINCIPAL
+    # ---------------------------------------------------------
+    if st.button("🏠 Retour menu principal", key="back_menu"):
+        st.session_state["mode"] = "menu"
+        st.rerun()

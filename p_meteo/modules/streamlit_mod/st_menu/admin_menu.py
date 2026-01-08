@@ -22,7 +22,7 @@ def show_admin():
         st.info("Aucune station enregistrée pour le moment.")
     else:
         st.markdown("### 📋 Stations existantes")
-        st.dataframe(stations_df , use_container_width=True, hide_index=True)
+        st.dataframe(stations_df, width="stretch", hide_index=True)
 
     st.markdown("---")
 

@@ -27,6 +27,9 @@ APP_METEO/
     │   └── meteo_ids.csv
     │
     ├── modules/
+    │   ├── command.py
+    │   ├── configuration.py
+    │   ├── viewer_factory.py
     │   ├── admin/
     │   │   ├── station_admin.py
     │   │   └── station_form.py
@@ -89,17 +92,23 @@ APP_METEO/
     │           └── st_ville.py     
     │
     └── transform/
-        ├── record.py
-        ├── t_direction_vent_max_deg.py
-        ├── t_direction_vent_max.py
-        ├── t_direction_vent_moyen.py
-        ├── t_heure_maj.py
-        ├── t_humidite.py
-        ├── t_pluie_max.py
-        ├── t_pluie.py
-        ├── t_pression.py
-        ├── t_rafale_max.py
-        ├── t_temperature.py
-        ├── t_vent_moyen.py
-        └── t_ville.py
+    │   ├── record.py
+    │   ├── t_direction_vent_max_deg.py
+    │   ├── t_direction_vent_max.py
+    │   ├── t_direction_vent_moyen.py
+    │   ├── t_heure_maj.py
+    │   ├── t_humidite.py
+    │   ├── t_pluie_max.py
+    │   ├── t_pluie.py
+    │   ├── t_pression.py
+    │   ├── t_rafale_max.py
+    │   ├── t_temperature.py
+    │   ├── t_vent_moyen.py
+    │   └── t_ville.py
+    │
+    └── utils/
+        ├── console_utils.py
+        ├── input_utils.py
+        ├── safe_input_choice.py
+        └── selection_parser.py
 ```

@@ -29,6 +29,7 @@ APP_METEO/
 ├── .streamlit/
 └── p_meteo/
     ├── config.json
+    ├── __main__.py
     ├── streamlit_app.py
     ├── liste_station/
     ├── modules/
@@ -36,7 +37,26 @@ APP_METEO/
     └── utils/
 ```
 
-Chaque dossier correspond à un domaine fonctionnel clairement séparé.
+---
+
+## 2.1 Points d’entrée de l’application
+
+L’application peut être lancée via deux interfaces distinctes :
+
+### Interface console
+- Point d’entrée : `p_meteo/__main__.py`
+- Rôle :
+  - afficher le menu principal  
+  - gérer la sélection des KPI  
+  - orchestrer la boucle utilisateur  
+  - déclencher le pipeline météo (Extract → Transform → Show)
+
+### Interface Streamlit
+- Point d’entrée : `p_meteo/streamlit_app.py`
+- Rôle :
+  - initialiser la configuration  
+  - gérer la navigation via `st.session_state`  
+  - déclencher le pipeline météo depuis l’interface web
 
 ---
 
@@ -47,79 +67,30 @@ Dossier principal contenant la logique métier de l’application.
 
 Il regroupe plusieurs sous‑modules :
 
-### **a) `command/`**
-Pipeline console basé sur le *Command Pattern* :
-- extraction  
-- transformation  
-- affichage console  
-
-### **b) `configuration/`**
-Gestion centralisée de la configuration via un **Singleton** :
-- mappings KPI  
-- mappings viewers  
-- paramètres généraux  
-- KPIs sélectionnés  
-
-### **c) `extract/`**
-Couche d’accès aux données :
-- appel API  
-- sélection de station  
-- conversion en DataFrame  
-
-### **d) `transform/`**
-Application des transformations pour produire les KPI :
-- un transformer par indicateur  
-- enrichissement d’un objet métier  
-
-### **e) `show/` (console)**
-Affichage textuel des KPI :
-- construction d’une liste chaînée de viewers  
-- rendu console  
-
-### **f) `menu/` (console)**
-Menus textuels :
-- menu principal  
-- menu KPI  
-- menu administrateur  
-
-### **g) `admin/` (console)**
-Gestion des stations météo :
-- ajout  
-- modification  
-- suppression  
-
-### **h) `streamlit_mod/`**
-Modules dédiés à l’interface Streamlit :
-- menus web  
-- affichage web  
-- factory Streamlit  
-- gestion admin web  
-
-### **i) `chained/`**
-Implémentation d’une **LinkedList** utilisée pour l’affichage séquentiel des KPI.
-
----
+- `command/` : pipeline console (Command Pattern)  
+- `configuration/` : singleton de configuration  
+- `extract/` : accès aux données météo  
+- `transform/` : transformations KPI  
+- `show/` : affichage console  
+- `menu/` : menus console  
+- `admin/` : gestion des stations (console)  
+- `streamlit_mod/` : interface Streamlit  
+- `chained/` : implémentation d’une LinkedList
 
 ## 3.2 `transform/`
-Dossier contenant les transformations métier :
+Transformations métier appliquées au DataFrame :
 - un fichier par KPI  
-- enrichissement d’un objet métier  
-- logique indépendante de l’affichage  
-
----
+- enrichissement d’un objet métier
 
 ## 3.3 `utils/`
-Fonctions utilitaires pour la console :
+Utilitaires console :
 - gestion des entrées  
 - parsing  
-- sécurisation des choix  
-- helpers d’affichage  
-
----
+- helpers d’affichage
 
 ## 3.4 `liste_station/`
-Contient les données des stations météo :
-- fichier CSV listant les `dataset_id` et les villes associées  
+Données des stations météo :
+- fichier CSV listant les `dataset_id` et les villes associées
 
 ---
 
@@ -131,20 +102,18 @@ Le pipeline console est structuré en trois étapes successives :
 ExtractCommand  →  TransformCommand  →  ShowCommand
 ```
 
-### **1. Extraction**
+### 1. Extraction
 - appel API  
 - récupération des données brutes  
-- conversion en DataFrame  
+- conversion en DataFrame
 
-### **2. Transformation**
+### 2. Transformation
 - application des transformers  
-- enrichissement d’un objet métier  
+- enrichissement d’un objet métier
 
-### **3. Affichage**
+### 3. Affichage
 - construction d’une LinkedList de viewers console  
-- affichage séquentiel des KPI  
-
-Ce pipeline est entièrement encapsulé dans le *Command Pattern*.
+- affichage séquentiel des KPI
 
 ---
 
@@ -159,66 +128,41 @@ Le pipeline est déclenché directement par l’interface utilisateur.
 2. Extraction via `ExtractCommand`  
 3. Transformation via `TransformCommand`  
 4. Construction d’une LinkedList de viewers Streamlit  
-5. Affichage via widgets Streamlit ou tableau HTML  
-
-La navigation est gérée par `st_menu/`.
+5. Affichage via widgets Streamlit ou tableau HTML
 
 ---
 
 # 🧱 6. Patterns utilisés
 
 ## 6.1 Command Pattern
-Utilisé exclusivement dans la version console pour structurer le pipeline :
-
+Utilisé dans la version console pour structurer le pipeline :
 - `ExtractCommand`  
 - `TransformCommand`  
-- `ShowCommand`  
-
-Permet une séparation claire des étapes.
-
----
+- `ShowCommand`
 
 ## 6.2 Factory Pattern
-Deux factories distinctes :
-
+Deux factories :
 - `viewer_factory.py` (console)  
-- `st_viewer_factory.py` (Streamlit)  
-
-Elles créent dynamiquement les viewers à partir d’un nom technique de KPI.
-
----
+- `st_viewer_factory.py` (Streamlit)
 
 ## 6.3 Singleton Pattern
-`Configuration` est un singleton chargé de :
-
-- charger `config.json`  
-- fournir les mappings KPI  
-- fournir les mappings viewers  
-- gérer les KPIs sélectionnés  
-
----
+`Configuration` :
+- chargement unique de `config.json`  
+- accès centralisé aux mappings et paramètres
 
 ## 6.4 Linked List Pattern
 Implémentée dans `chained/linked_list.py` :
-
 - structure séquentielle de viewers  
-- utilisée en console et en Streamlit  
-- permet un affichage ordonné et extensible  
-
----
+- utilisée en console et en Streamlit
 
 ## 6.5 Modularisation par dossier
 Chaque dossier représente un domaine fonctionnel :
-
 - extraction  
 - transformation  
-- affichage console  
-- affichage Streamlit  
+- affichage  
 - menus  
 - administration  
-- utilitaires  
-
-Cette organisation garantit une séparation claire des responsabilités.
+- utilitaires
 
 ---
 
@@ -268,7 +212,6 @@ H --> I
 E --> K
 K --> L
 L --> M
-
 ```
 
 ---
@@ -280,8 +223,7 @@ L’architecture d’APP_METEO repose sur :
 - une séparation claire des responsabilités  
 - des patterns structurants (Command, Factory, Singleton, LinkedList)  
 - deux pipelines distincts (console et Streamlit)  
-- une modularisation forte par dossier  
+- une modularisation forte par dossier
 
 Ce document fournit la vue d’ensemble.  
 Les détails techniques sont décrits dans le dossier `10_Modules/`.
-

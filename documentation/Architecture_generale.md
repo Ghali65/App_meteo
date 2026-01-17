@@ -76,19 +76,9 @@ Il regroupe plusieurs sous‑modules :
 - `admin/` : gestion des stations (console)  
 - `streamlit_mod/` : interface Streamlit  
 - `chained/` : implémentation d’une LinkedList
+- `utils/` : Utilitaires console (gestion des entrées, parsing, helpers d’affichage)
 
-## 3.2 `transform/`
-Transformations métier appliquées au DataFrame :
-- un fichier par KPI  
-- enrichissement d’un objet métier
-
-## 3.3 `utils/`
-Utilitaires console :
-- gestion des entrées  
-- parsing  
-- helpers d’affichage
-
-## 3.4 `liste_station/`
+## 3.2 `liste_station/`
 Données des stations météo :
 - fichier CSV listant les `dataset_id` et les villes associées
 

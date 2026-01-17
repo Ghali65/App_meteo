@@ -28,7 +28,7 @@ L’application permet de consulter les données météo de différentes villes,
 - Menu principal interactif  
 - Consultation météo multi‑stations  
 - Affichage des KPI météo  
-- Mode administrateur (CRUD stations)  
+- Mode administrateur
 - Test API intégré
 
 ### ✔ Version web (Streamlit)

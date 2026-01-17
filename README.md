@@ -91,19 +91,36 @@ APP_METEO/
 
 ## 📘 Documentation complète
 
-La documentation est organisée en trois sections :
+La documentation est organisée en quatre sections :
 
 ### 1. Modules techniques  
 `documentation/10_modules/`  
 Documentation complète des modules internes : Extract, Transform, Show, Admin, Menu…
 
-### 2. Guides pratiques  
-`documentation/20_Guides/`  
-Guides pas‑à‑pas pour ajouter un KPI, un transformer, un viewer, une station…
+### 2. Annexes  
+`documentation/20_Annexes/`  
+Schémas Mermaid, structure du projet, annexes visuelles, guide ajout kpi.
 
-### 3. Annexes  
-`documentation/30_Annexes/`  
-Schémas Mermaid, structure du projet, annexes visuelles.
+### 3. Architecture générale  
+`documentation/Architecture_generale.md`  
+Vue d’ensemble de l’architecture du projet :  
+- organisation modulaire  
+- structure des dossiers  
+- points d’entrée (console & Streamlit)  
+- description des grands modules  
+- patterns utilisés (Command, Factory, Singleton, LinkedList)  
+- schéma global du fonctionnement
+
+### 4. Pipeline de traitement des données  
+`documentation/pipeline_donnees.md`  
+Description complète du flux de données :  
+- sélection de la station  
+- appel API  
+- conversion en DataFrame  
+- transformations KPI  
+- construction de l’objet métier  
+- affichage console et Streamlit  
+- schémas Mermaid du pipeline
 
 ---
 

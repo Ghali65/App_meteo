@@ -1,5 +1,5 @@
 import streamlit as st
-from modules.configuration import Configuration
+from ..modules.configuration import Configuration
 from modules.streamlit_mod.st_menu.menu_button import menu_button
 
 

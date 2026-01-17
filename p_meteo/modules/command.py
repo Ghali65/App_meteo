@@ -5,9 +5,9 @@ Extraction → Transformation → Affichage.
 
 from typing import Any, List
 
-from p_meteo.modules.show.build_viewer_list import build_viewer_list
-from p_meteo.modules.transform.record import Record
-from p_meteo.modules.configuration import Configuration
+from .show.build_viewer_list import build_viewer_list
+from .transform.record import Record
+from .configuration import Configuration
 
 
 class Command:
@@ -67,4 +67,4 @@ class ShowCommand(Command):
 
     def execute(self) -> None:
         linked_list = build_viewer_list(self.record, self.selected_kpis)
-        linked_list.afficher_liste()
+        linked_list.display_all()

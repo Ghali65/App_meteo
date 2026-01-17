@@ -13,24 +13,24 @@ de la logique d’affichage console.
 
 from typing import Any, Dict, Type
 
-from p_meteo.modules.configuration import Configuration
+from .configuration import Configuration
 
 # ----------------------------------------------------------------------
 # 📦 Imports explicites des viewers console
 # Chaque viewer doit être importé ici pour être disponible dans le registre.
 # ----------------------------------------------------------------------
-from p_meteo.modules.show.s_ville import SVille
-from p_meteo.modules.show.s_heure_maj import SHeureMaj
-from p_meteo.modules.show.s_temperature import STemperature
-from p_meteo.modules.show.s_humidite import SHumidite
-from p_meteo.modules.show.s_pression import SPression
-from p_meteo.modules.show.s_pluie import SPluie
-from p_meteo.modules.show.s_pluie_max import SPluieMax
-from p_meteo.modules.show.s_vent_moyen import SVentMoyen
-from p_meteo.modules.show.s_rafale_max import SRafaleMax
-from p_meteo.modules.show.s_direction_vent_max import SDirectionVentMax
-from p_meteo.modules.show.s_direction_vent_max_deg import SDirectionVentMaxDeg
-from p_meteo.modules.show.s_direction_vent_moyen import SDirectionVentMoyen
+from .show.s_ville import SVille
+from .show.s_heure_maj import SHeureMaj
+from .show.s_temperature import STemperature
+from .show.s_humidite import SHumidite
+from .show.s_pression import SPression
+from .show.s_pluie import SPluie
+from .show.s_pluie_max import SPluieMax
+from .show.s_vent_moyen import SVentMoyen
+from .show.s_rafale_max import SRafaleMax
+from .show.s_direction_vent_max import SDirectionVentMax
+from .show.s_direction_vent_max_deg import SDirectionVentMaxDeg
+from .show.s_direction_vent_moyen import SDirectionVentMoyen
 
 
 # ----------------------------------------------------------------------

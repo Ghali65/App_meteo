@@ -5,12 +5,12 @@ Formulaire console pour ajouter ou modifier une station météo.
 import pandas as pd
 from typing import Optional, Tuple
 
-from p_meteo.modules.utils.console_utils import clear_console
-from p_meteo.modules.utils.input_utils import (
+from ..utils.console_utils import clear_console
+from ..utils.input_utils import (
     ask_yes_no,
     safe_input_back_or_choice,
 )
-from p_meteo.modules.extract.call_api import CallApi
+from ..extract.call_api import CallApi
 
 
 def station_form(

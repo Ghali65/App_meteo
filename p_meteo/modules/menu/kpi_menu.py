@@ -11,10 +11,10 @@ Fonctionnalités :
 
 from typing import List, Optional
 
-from p_meteo.modules.configuration import Configuration
-from p_meteo.modules.utils.selection_parser import parse_multi_selection
-from p_meteo.modules.utils.console_utils import clear_console
-from p_meteo.modules.utils.input_utils import ask_yes_no
+from ..configuration import Configuration
+from ..utils.selection_parser import parse_multi_selection
+from ..utils.console_utils import clear_console
+from ..utils.input_utils import ask_yes_no
 
 
 def run_kpi_selection_menu() -> Optional[List[str]]:

@@ -34,7 +34,8 @@ def build_streamlit_viewer_list(record, selected_kpis) -> LinkedList:
 
     for viewer_type in selected_kpis[1:]:
         viewer = StreamlitViewerFactory.create(viewer_type, record)
-        linked_list.ajouter_maillon(Link(viewer))
+        linked_list.append(Link(viewer))
+
 
     return linked_list
 ```

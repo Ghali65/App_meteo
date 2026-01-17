@@ -10,9 +10,9 @@ Affiche les différentes options disponibles :
 Ce menu constitue le point d’entrée de l’expérience console.
 """
 
-from p_meteo.modules.configuration import Configuration
-from p_meteo.modules.utils.input_utils import safe_input_choice
-from p_meteo.modules.utils.console_utils import clear_console
+from ..configuration import Configuration
+from ..utils.safe_input_choice import safe_input_choice
+from ..utils.console_utils import clear_console
 
 
 def main_menu():

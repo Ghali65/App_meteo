@@ -5,9 +5,9 @@ Sélection interactive des stations météo depuis un CSV.
 from typing import List, Optional
 import pandas as pd
 
-from p_meteo.modules.utils.selection_parser import parse_multi_selection
-from p_meteo.modules.utils.input_utils import ask_yes_no
-from p_meteo.modules.utils.console_utils import clear_console
+from ..utils.selection_parser import parse_multi_selection
+from ..utils.input_utils import ask_yes_no
+from ..utils.console_utils import clear_console
 
 
 class StationSelector:

@@ -129,7 +129,8 @@ def build_viewer_list(record, selected_kpis) -> LinkedList:
 
     for kpi_name in selected_kpis[1:]:
         viewer = ViewerFactory.create(kpi_name, record)
-        linked_list.ajouter_maillon(Link(viewer))
+        linked_list.append(Link(viewer))
+
 
     return linked_list
 ```

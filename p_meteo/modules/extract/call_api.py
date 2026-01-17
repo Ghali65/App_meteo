@@ -5,7 +5,7 @@ Module d'appel à l'API Toulouse Métropole pour récupérer les données mété
 from typing import Optional
 import requests
 
-from p_meteo.modules.configuration import Configuration
+from ..configuration import Configuration
 
 
 class CallApi:

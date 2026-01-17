@@ -12,10 +12,10 @@ Il s’appuie sur :
 - safe_input_back_or_choice : pour sécuriser les entrées utilisateur
 """
 
-from p_meteo.modules.configuration import Configuration
-from p_meteo.modules.utils.console_utils import clear_console
-from p_meteo.modules.utils.input_utils import safe_input_back_or_choice
-from p_meteo.modules.admin.station_admin import StationAdmin
+from ..configuration import Configuration
+from ..utils.console_utils import clear_console
+from ..utils.input_utils import safe_input_back_or_choice
+from ..admin.station_admin import StationAdmin
 
 
 def run_admin_menu() -> None:

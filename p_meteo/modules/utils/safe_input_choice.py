@@ -14,7 +14,7 @@ def safe_input_choice(prompt: str, valid_choices: list[str]) -> str:
         La saisie utilisateur (str) si elle est valide.
     """
     while True:
-        choix = input(prompt).strip()
+        choix = input(prompt).strip().upper()
         if choix in valid_choices:
             return choix
         print(

@@ -1,8 +1,10 @@
 import pandas as pd
 
+
 class TVentMoyen:
     """
-    Enrichit record.vent_moyen.
+    Enrichit record.vent_moyen à partir de la colonne
+    'force_moyenne_du_vecteur_vent'.
     """
 
     def __call__(self, df: pd.DataFrame, record):

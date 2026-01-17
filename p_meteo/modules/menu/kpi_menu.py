@@ -1,19 +1,37 @@
+"""
+Menu console permettant à l’utilisateur de sélectionner les KPIs météo.
+
+Fonctionnalités :
+- Affichage de la liste complète des KPIs disponibles
+- Sélection multiple via une syntaxe flexible (ex : "1,3-5,7")
+- Validation robuste des entrées utilisateur
+- Confirmation finale avant validation
+- Retour possible à tout moment via "0"
+"""
+
 from typing import List, Optional
-from ..configuration import Configuration
-from ..utils.selection_parser import parse_multi_selection
-from ..utils.console_utils import clear_console
-from ..utils.input_utils import ask_yes_no
+
+from p_meteo.modules.configuration import Configuration
+from p_meteo.modules.utils.selection_parser import parse_multi_selection
+from p_meteo.modules.utils.console_utils import clear_console
+from p_meteo.modules.utils.input_utils import ask_yes_no
 
 
 def run_kpi_selection_menu() -> Optional[List[str]]:
     """
     Menu de sélection des KPIs.
-    Permet une saisie multiple (1,3-5,7), confirmation utilisateur,
-    et gestion robuste des erreurs.
-    Retourne une liste de noms techniques de KPIs ou None si annulation.
+
+    Permet :
+    - une saisie multiple (1,3-5,7)
+    - une confirmation utilisateur
+    - une gestion robuste des erreurs
+
+    Retourne :
+        - une liste de noms techniques de KPIs
+        - None si l’utilisateur annule (choix "0")
     """
     config = Configuration()
-    available_kpis = config.get_available_kpis()
+    available_kpis = config.get_available_kpis()  # dict : {technique: label}
     all_kpis = list(available_kpis.keys())
     max_index = len(all_kpis)
 
@@ -31,13 +49,13 @@ def run_kpi_selection_menu() -> Optional[List[str]]:
 
         print("\n0) ⬅️  Retour\n")
 
-        # Saisie libre avec retour
+        # Saisie libre avec possibilité de retour
         choix = input("Sélectionnez les KPIs (ex: 1,4,6-8) : ").strip()
 
-        if choix=="0":
-            return None  # retour
+        if choix == "0":
+            return None  # retour au menu précédent
 
-        # Parsing multiple
+        # Parsing multiple (ex : "1,3-5")
         indices = parse_multi_selection(choix, max_index)
 
         if not indices:

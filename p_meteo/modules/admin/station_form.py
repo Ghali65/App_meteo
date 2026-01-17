@@ -1,26 +1,35 @@
+"""
+Formulaire console pour ajouter ou modifier une station météo.
+"""
+
 import pandas as pd
 from typing import Optional, Tuple
-from ..utils.console_utils import clear_console
-from ..utils.input_utils import ask_yes_no, safe_input_back_or_choice
-from ..extract.call_api import CallApi
+
+from p_meteo.modules.utils.console_utils import clear_console
+from p_meteo.modules.utils.input_utils import (
+    ask_yes_no,
+    safe_input_back_or_choice,
+)
+from p_meteo.modules.extract.call_api import CallApi
 
 
 def station_form(
     df_csv: pd.DataFrame,
     ville_initiale: Optional[str] = None,
-    dataset_initial: Optional[str] = None
+    dataset_initial: Optional[str] = None,
 ) -> Optional[Tuple[str, str]]:
     """
     Formulaire commun pour ajouter ou modifier une station.
-    Retourne (ville, dataset_id) ou None si annulé ou retour utilisateur.
-    """
 
+    Retourne :
+        (ville, dataset_id)
+        ou None si annulé ou retour utilisateur.
+    """
     clear_console()
     print("=== FORMULAIRE STATION ===\n")
 
     villes = df_csv["ville"].unique().tolist()
 
-    # --- Sélection ou modification de la ville ---
     print("Sélectionnez une ville :\n")
     for i, ville in enumerate(villes, start=1):
         print(f"{i}) {ville}")
@@ -36,15 +45,13 @@ def station_form(
         "\nVotre choix : ",
         valid_choices=valid_choices,
         back_value="0",
-        cast_to_int=True
+        cast_to_int=True,
     )
 
     if choix is None:
         return None
 
-    # --- Traitement du choix ---
     if choix == len(villes) + 1:
-        # Ajout d'une nouvelle ville
         ville = input("Entrez le nom de la nouvelle ville : ").strip()
         while not ville:
             print("❌ Ville invalide.")
@@ -52,7 +59,6 @@ def station_form(
     else:
         ville = villes[choix - 1]
 
-    # --- Dataset ID ---
     if dataset_initial:
         print(f"\nDataset ID actuel : {dataset_initial}")
 
@@ -61,7 +67,6 @@ def station_form(
         print("❌ dataset_id vide.")
         dataset_id = input("Entrez le dataset_id de la station : ").strip()
 
-    # --- Récapitulatif ---
     print("\n=== RÉCAPITULATIF ===")
     print(f"Ville : {ville}")
     print(f"Dataset ID : {dataset_id}")
@@ -71,7 +76,6 @@ def station_form(
         input("Appuyez sur Entrée pour continuer.")
         return None
 
-    # --- Test API optionnel ---
     api_ok = False
     if ask_yes_no("\nVoulez-vous tester la station via l'API ? (O/N) : "):
         print("\n🔍 Test de la station via l'API...")

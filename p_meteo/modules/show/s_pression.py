@@ -1,17 +1,18 @@
 class SPression:
     """
-    Classe utilitaire pour afficher les informations météo extraites d'un objet Record.
+    Viewer console pour la pression atmosphérique.
+
+    Remarque :
+    - display est utilisé comme un "pattern décorateur" :
+      il enrichit l’affichage en se basant sur Record.
     """
 
     def __init__(self, record) -> None:
         """
-        Initialise la classe avec une instance de Record.
-
         Args:
-            record (Record): Instance contenant les données météo.
+            record: Données météo transformées.
         """
         self.record = record
-        
-    "display est un  pattern décorateur"
+
     def display(self) -> None:
         print("📊 Pression :", self.record.pression)

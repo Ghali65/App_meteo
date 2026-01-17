@@ -1,14 +1,26 @@
-from .show.build_viewer_list import build_viewer_list
-from .transform.record import Record
-from .configuration import Configuration
+"""
+Implémentation du Command Pattern pour orchestrer le pipeline :
+Extraction → Transformation → Affichage.
+"""
+
+from typing import Any, List
+
+from p_meteo.modules.show.build_viewer_list import build_viewer_list
+from p_meteo.modules.transform.record import Record
+from p_meteo.modules.configuration import Configuration
+
 
 class Command:
-    def execute(self):
+    """Classe de base pour toutes les commandes du pipeline."""
+
+    def execute(self) -> Any:
         raise NotImplementedError("La méthode execute() doit être implémentée.")
 
 
 class ExtractCommand(Command):
-    def __init__(self, dataset_id, CallApi, ToDataFrame, mapping):
+    """Commande d'extraction : API → JSON → DataFrame."""
+
+    def __init__(self, dataset_id: str, CallApi, ToDataFrame, mapping: dict) -> None:
         self.dataset_id = dataset_id
         self.CallApi = CallApi
         self.ToDataFrame = ToDataFrame
@@ -28,32 +40,31 @@ class ExtractCommand(Command):
 
 
 class TransformCommand(Command):
-    """
-    Applique chaque transformer sur un même Record enrichi.
-    """
-    def __init__(self, df, transformers):
+    """Commande de transformation : DataFrame → Record enrichi."""
+
+    def __init__(self, df, transformers: List[Any]) -> None:
         self.df = df
         self.transformers = transformers
 
-    def execute(self):
-        # On récupère le mapping KPI pour créer un Record dynamique
+    def execute(self) -> Record:
         config = Configuration()
         kpi_mapping = config.get_kpi_mapping()
 
-        # Record dynamique : un attribut par KPI
         record = Record(kpi_mapping)
 
-        # Application des transformateurs (df en premier, record en second)
         for transformer in self.transformers:
             record = transformer(self.df, record)
 
         return record
 
+
 class ShowCommand(Command):
-    def __init__(self, record, selected_kpis):
+    """Commande d'affichage : Record → Viewers console."""
+
+    def __init__(self, record: Record, selected_kpis: List[str]) -> None:
         self.record = record
         self.selected_kpis = selected_kpis
 
-    def execute(self):
+    def execute(self) -> None:
         linked_list = build_viewer_list(self.record, self.selected_kpis)
         linked_list.afficher_liste()

@@ -1,6 +1,15 @@
 import streamlit as st
 
+
 def show_kpi_customization(config):
+    """
+    Interface Streamlit pour personnaliser les KPIs affichés.
+
+    Permet :
+    - de sélectionner les KPIs disponibles
+    - de visualiser la sélection
+    - de sauvegarder la configuration
+    """
     st.subheader("🎛️ Personnalisation des KPIs")
 
     available_kpis = config.get_available_kpis()

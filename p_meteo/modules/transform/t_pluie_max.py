@@ -1,8 +1,9 @@
 import pandas as pd
 
+
 class TPluieMax:
     """
-    Enrichit record.pluie_max.
+    Enrichit record.pluie_max à partir de la colonne 'pluie_intensite_max'.
     """
 
     def __call__(self, df: pd.DataFrame, record):

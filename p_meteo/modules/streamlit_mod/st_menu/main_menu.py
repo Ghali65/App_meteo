@@ -2,13 +2,24 @@ import streamlit as st
 from modules.configuration import Configuration
 from modules.streamlit_mod.st_menu.menu_button import menu_button
 
+
 def show_main_menu():
+    """
+    Menu principal Streamlit de l'application météo.
+
+    Propose :
+    - l’affichage météo
+    - la personnalisation des KPIs
+    - le mode administrateur
+    - la fermeture de l’application
+    """
     st.title("🌤️ Application Météo")
     st.write("Bienvenue ! Choisissez une action pour commencer.\n")
 
     config = Configuration()
     available_kpis = config.get_available_kpis()
     current_kpis = config.get_selected_kpis()
+
     labels = [available_kpis.get(k, k) for k in current_kpis]
     kpi_text = ", ".join(labels)
 

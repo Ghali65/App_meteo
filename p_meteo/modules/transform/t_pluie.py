@@ -1,8 +1,9 @@
 import pandas as pd
 
+
 class TPluie:
     """
-    Enrichit record.pluie.
+    Enrichit record.pluie à partir de la colonne 'pluie'.
     """
 
     def __call__(self, df: pd.DataFrame, record):

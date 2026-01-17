@@ -1,17 +1,35 @@
 import streamlit as st
-from modules.transform.t_pression import TPression
+
 
 class St_Pression:
-    def __init__(self, record: TPression) -> None:
+    """
+    Viewer Streamlit pour la pression atmosphérique.
+    """
+
+    def __init__(self, record) -> None:
+        """
+        Initialise le viewer avec une instance de Record.
+
+        Args:
+            record: Données météo transformées.
+        """
         self.record = record
 
     def display(self) -> None:
-        if self.record.pression is not None:
-            st.metric(label="🌬️ Pression", value=f"{self.record.pression} hPa")
+        """
+        Affiche la pression atmosphérique dans Streamlit.
+        """
+        value = self.record.pression
+        if value is not None:
+            st.metric(label="🌬️ Pression", value=f"{value} hPa")
         else:
             st.warning("Pression non disponible.")
 
     def get_value(self) -> tuple[str, str]:
-        if self.record.pression is not None:
-            return "🌬️ Pression", f"{self.record.pression} hPa"
+        """
+        Retourne le label et la valeur de la pression.
+        """
+        value = self.record.pression
+        if value is not None:
+            return "🌬️ Pression", f"{value} hPa"
         return "🌬️ Pression", "N/A"

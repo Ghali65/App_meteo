@@ -1,16 +1,35 @@
 import streamlit as st
 
+
 class St_Ville:
-    def __init__(self, record):
+    """
+    Viewer Streamlit pour le nom de la ville associée à la station météo.
+    """
+
+    def __init__(self, record) -> None:
+        """
+        Initialise le viewer avec une instance de Record.
+
+        Args:
+            record: Données météo transformées.
+        """
         self.record = record
 
-    def display(self):
-        if self.record.ville:
-            st.write(f"🏙️ Ville : **{self.record.ville}**")
+    def display(self) -> None:
+        """
+        Affiche le nom de la ville dans Streamlit.
+        """
+        value = self.record.ville
+        if value:
+            st.write(f"🏙️ Ville : **{value}**")
         else:
             st.warning("Ville non disponible.")
 
     def get_value(self) -> tuple[str, str]:
-        if self.record.ville:
-            return "🏙️ Ville", str(self.record.ville)
+        """
+        Retourne le label et le nom de la ville.
+        """
+        value = self.record.ville
+        if value:
+            return "🏙️ Ville", str(value)
         return "🏙️ Ville", "N/A"

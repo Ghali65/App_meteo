@@ -1,65 +1,62 @@
+"""
+Implémentation d'une liste chaînée simple utilisée pour enchaîner les viewers.
+"""
+
+from __future__ import annotations
+from typing import Any, Optional
+
+
 class Link:
     """
-    Classe représentant un maillon de la liste chaînée.
-    Chaque maillon contient une valeur (ex. un viewer) et une référence vers le suivant.
+    Représente un maillon de la liste chaînée.
+    Contient une valeur (ex. un viewer) et une référence vers le maillon suivant.
     """
 
-    def __init__(self, value, suivant=None):
-        """
-        Initialise un maillon.
-
-        Args:
-            value: Objet stocké dans le maillon (ex. un viewer S...).
-            suivant (Link, optionnel): Maillon suivant dans la liste.
-        """
+    def __init__(self, value: Any, suivant: Optional["Link"] = None) -> None:
         self.value = value
         self.suivant = suivant
 
-    def get_value(self):
+    def get_value(self) -> Any:
         """Retourne la valeur contenue dans le maillon."""
         return self.value
 
-    def get_suivant(self):
+    def get_suivant(self) -> Optional["Link"]:
         """Retourne le maillon suivant."""
         return self.suivant
 
-    def set_suivant(self, suivant):
+    def set_suivant(self, suivant: Optional["Link"]) -> None:
         """Définit le maillon suivant."""
         self.suivant = suivant
 
 
 class LinkedList:
     """
-    Classe représentant une liste chaînée simple.
-    Permet d'ajouter des maillons et de parcourir la liste.
+    Liste chaînée simple permettant d'ajouter des maillons
+    et de parcourir les viewers dans l'ordre.
     """
 
-    def __init__(self, premier_maillon: Link):
-        """
-        Initialise la liste avec un premier maillon.
-
-        Args:
-            premier_maillon (Link): Premier élément de la liste.
-        """
+    def __init__(self, premier_maillon: Link) -> None:
         self.premier_maillon = premier_maillon
 
-    def ajouter_maillon(self, maillon: Link):
+    def append(self, maillon: Link) -> None:
         """Ajoute un maillon à la fin de la liste."""
-        self.get_dernier().set_suivant(maillon)
+        self.get_last().set_suivant(maillon)
 
-    def get_dernier(self):
+    def get_last(self) -> Link:
         """Retourne le dernier maillon de la liste."""
-        maillon_actuel = self.premier_maillon
-        while maillon_actuel.get_suivant() is not None:
-            maillon_actuel = maillon_actuel.get_suivant()
-        return maillon_actuel
+        maillon = self.premier_maillon
+        while maillon.get_suivant() is not None:
+            maillon = maillon.get_suivant()
+        return maillon
 
-    def afficher_liste(self):
-        """
-        Parcourt la liste et appelle la méthode display()
-        de chaque objet stocké dans les maillons.
-        """
-        maillon_actuel = self.premier_maillon
-        while maillon_actuel is not None:
-            maillon_actuel.get_value().display()
-            maillon_actuel = maillon_actuel.get_suivant()
+    def __iter__(self):
+        """Permet d'itérer directement sur les valeurs de la liste."""
+        maillon = self.premier_maillon
+        while maillon is not None:
+            yield maillon.get_value()
+            maillon = maillon.get_suivant()
+
+    def display_all(self) -> None:
+        """Appelle display() sur chaque viewer de la liste."""
+        for viewer in self:
+            viewer.display()

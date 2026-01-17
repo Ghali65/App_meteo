@@ -1,11 +1,18 @@
+"""
+Gestion des stations météo (ajout, modification, suppression).
+"""
+
 import pandas as pd
-from ..utils.input_utils import ask_yes_no
-from ..utils.selection_parser import parse_multi_selection
-from ..utils.console_utils import clear_console
-from .station_form import station_form
+
+from p_meteo.modules.utils.input_utils import ask_yes_no
+from p_meteo.modules.utils.selection_parser import parse_multi_selection
+from p_meteo.modules.utils.console_utils import clear_console
+from p_meteo.modules.admin.station_form import station_form
 
 
 class StationAdmin:
+    """Gestionnaire CRUD des stations météo stockées dans un CSV."""
+
     def __init__(self, csv_path: str):
         self.csv_path = csv_path
         self.df = pd.read_csv(csv_path)
@@ -14,6 +21,7 @@ class StationAdmin:
     # AJOUT
     # ---------------------------------------------------------
     def add(self) -> None:
+        """Ajoute une nouvelle station via le formulaire."""
         result = station_form(self.df)
 
         if not result:
@@ -26,7 +34,6 @@ class StationAdmin:
             input("Appuyez sur Entrée pour continuer.")
             return
 
-        # Ajout dans le DataFrame
         self.df.loc[len(self.df)] = [dataset_id, ville]
         self.df.to_csv(self.csv_path, index=False)
 
@@ -37,6 +44,7 @@ class StationAdmin:
     # MODIFICATION
     # ---------------------------------------------------------
     def edit(self) -> None:
+        """Modifie une station existante."""
         clear_console()
         print("=== MODIFICATION DE STATION ===\n")
 
@@ -45,15 +53,14 @@ class StationAdmin:
             input("\nAppuyez sur Entrée pour continuer.")
             return
 
-        # Affichage
         for i, row in self.df.iterrows():
             print(f"{i + 1}) {row['ville']}  →  {row['dataset_id']}")
 
         print("\n0) ⬅️ Retour\n")
 
         valid_choices = [str(i) for i in range(1, len(self.df) + 1)]
-
         choix = input("Votre choix : ").strip()
+
         if choix == "0":
             return
 
@@ -72,6 +79,15 @@ class StationAdmin:
 
         nouvelle_ville, nouveau_dataset = result
 
+        # Vérification doublon dataset_id
+        if (
+            nouveau_dataset in self.df["dataset_id"].values
+            and nouveau_dataset != dataset_actuel
+        ):
+            print("\n⚠️ Ce dataset_id existe déjà.")
+            input("Appuyez sur Entrée pour continuer.")
+            return
+
         self.df.at[idx, "ville"] = nouvelle_ville
         self.df.at[idx, "dataset_id"] = nouveau_dataset
         self.df.to_csv(self.csv_path, index=False)
@@ -83,6 +99,7 @@ class StationAdmin:
     # SUPPRESSION
     # ---------------------------------------------------------
     def delete(self) -> None:
+        """Supprime une ou plusieurs stations."""
         clear_console()
         print("=== SUPPRESSION DE STATION ===\n")
 
@@ -97,8 +114,9 @@ class StationAdmin:
         print("\n0) ⬅️ Retour\n")
 
         max_index = len(self.df)
-
-        selection = input("Sélectionnez les stations à supprimer (ex : 1,3-5) : ").strip()
+        selection = input(
+            "Sélectionnez les stations à supprimer (ex : 1,3-5) : "
+        ).strip()
 
         if selection == "0":
             return

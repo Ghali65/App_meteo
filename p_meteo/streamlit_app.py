@@ -6,17 +6,22 @@ from modules.streamlit_mod.st_menu.kpi_menu import show_kpi_customization
 from modules.streamlit_mod.st_menu.admin_menu import show_admin
 
 def run_app():
+    """ Point d'entrée de l'application Streamlit. 
+    Initialise la session et affiche l'écran correspondant au mode actif. 
+    """
     config = Configuration()
 
     if "initialized" not in st.session_state:
         config.set_selected_kpis(config.get_default_kpis())
         st.session_state["initialized"] = True
 
+    # Initialisation de la session
     if "mode" not in st.session_state:
         st.session_state["mode"] = "menu"
 
     mode = st.session_state["mode"]
 
+    # Affichage du menu principal
     if mode == "menu":
         show_main_menu()
     elif mode == "weather":

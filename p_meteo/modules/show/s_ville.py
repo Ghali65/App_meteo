@@ -1,14 +1,12 @@
 class SVille:
     """
-    Classe utilitaire pour afficher les informations météo extraites d'un objet Record.
+    Viewer console pour le nom de la ville associée à la station météo.
     """
 
     def __init__(self, record) -> None:
         """
-        Initialise la classe avec une instance de Record.
-
         Args:
-            record (Record): Instance contenant les données météo.
+            record: Données météo transformées.
         """
         self.record = record
 

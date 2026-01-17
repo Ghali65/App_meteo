@@ -11,9 +11,15 @@ def st_station_form(
     form_key: str = "default"
 ) -> Optional[Tuple[str, str]]:
     """
-    Version Streamlit du formulaire station.
-    Retourne (ville, dataset_id) ou None si annulé.
-    form_key permet d'éviter les collisions d'ID Streamlit.
+    Formulaire Streamlit pour ajouter ou modifier une station.
+
+    Retourne :
+        (ville, dataset_id) si l’utilisateur valide
+        None si l’utilisateur annule ou si validation impossible
+
+    form_key :
+        Permet d’éviter les collisions d’ID Streamlit lorsque plusieurs
+        formulaires sont affichés dans la même page.
     """
 
     st.markdown("### 📝 Formulaire station")
@@ -38,7 +44,11 @@ def st_station_form(
     )
 
     if ville_selection == "➕ Ajouter une nouvelle ville":
-        ville = st.text_input("Nouvelle ville :", value="", key=f"ville_new_{form_key}")
+        ville = st.text_input(
+            "Nouvelle ville :",
+            value="",
+            key=f"ville_new_{form_key}"
+        )
     else:
         ville = ville_selection
 
@@ -76,6 +86,7 @@ def st_station_form(
     # Validation
     # ---------------------------------------------------------
     if st.button("Valider", key=f"valider_{form_key}"):
+        # Vérifications simples
         if not ville.strip():
             st.error("❌ Ville invalide.")
             return None
@@ -84,9 +95,13 @@ def st_station_form(
             st.error("❌ dataset_id vide.")
             return None
 
+        # Si test API activé mais non concluant
         if test_api and not api_ok:
             st.warning("La station n'a pas été reconnue par l'API.")
-            if not st.checkbox("Continuer malgré tout", key=f"force_continue_{form_key}"):
+            if not st.checkbox(
+                "Continuer malgré tout",
+                key=f"force_continue_{form_key}"
+            ):
                 return None
 
         return ville.strip(), dataset_id.strip()

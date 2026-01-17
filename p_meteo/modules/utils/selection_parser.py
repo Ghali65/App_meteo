@@ -1,12 +1,23 @@
 from typing import List, Optional
 
+
 def parse_multi_selection(selection: str, max_index: int) -> Optional[List[int]]:
     """
     Parse une chaîne du type "1,3-5,7" et retourne une liste d'indices valides.
-    Retourne None si la saisie est invalide.
+
+    Règles :
+    - Les valeurs simples (ex: "4") sont interprétées comme un indice unique.
+    - Les plages (ex: "3-6") sont développées en [3, 4, 5, 6].
+    - Les indices doivent être compris entre 1 et max_index.
+    - Les doublons sont supprimés.
+    - La liste retournée est triée.
+
+    Retourne:
+        - Une liste d'entiers si la saisie est valide.
+        - None si la saisie est invalide (format ou valeurs hors bornes).
     """
     try:
-        result = []
+        result: list[int] = []
         parts = selection.split(",")
 
         for part in parts:

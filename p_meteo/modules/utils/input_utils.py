@@ -1,7 +1,10 @@
 def ask_yes_no(prompt: str) -> bool:
     """
-    Pose une question O/N et boucle tant que la réponse n'est pas valide.
-    Retourne True pour O, False pour N.
+    Pose une question fermée (O/N) et boucle tant que la réponse n'est pas valide.
+
+    Retourne:
+        True  si l'utilisateur répond 'O'
+        False si l'utilisateur répond 'N'
     """
     while True:
         choix = input(prompt).strip().upper()
@@ -19,8 +22,17 @@ def safe_input_choice(
     Demande une saisie utilisateur et vérifie qu'elle fait partie des choix valides.
     Boucle jusqu'à obtenir une valeur correcte.
 
-    Si cast_to_int=True, retourne un int au lieu d'un str.
-    La saisie est automatiquement convertie en majuscules.
+    Particularités :
+    - La saisie est automatiquement convertie en majuscules.
+    - Si cast_to_int=True, la valeur retournée est un int, sinon un str.
+
+    Args:
+        prompt: Message affiché à l'utilisateur.
+        valid_choices: Liste des valeurs acceptées (en str).
+        cast_to_int: Si True, convertit la saisie en int avant de la retourner.
+
+    Returns:
+        str ou int selon cast_to_int.
     """
     while True:
         choix = input(prompt).strip().upper()
@@ -28,7 +40,10 @@ def safe_input_choice(
         if choix in valid_choices:
             return int(choix) if cast_to_int else choix
 
-        print(f"\n❌ Saisie invalide : '{choix}'. Choix possibles : {', '.join(valid_choices)}.\n")
+        print(
+            f"\n❌ Saisie invalide : '{choix}'. "
+            f"Choix possibles : {', '.join(valid_choices)}.\n"
+        )
 
 
 def safe_input_back_or_choice(
@@ -39,7 +54,19 @@ def safe_input_back_or_choice(
 ):
     """
     Variante de safe_input_choice permettant d'inclure un choix 'retour'.
-    Retourne None si l'utilisateur choisit back_value.
+
+    Comportement :
+    - Si l'utilisateur saisit back_value (par défaut "0"), la fonction retourne None.
+    - Sinon, elle se comporte comme safe_input_choice.
+
+    Args:
+        prompt: Message affiché à l'utilisateur.
+        valid_choices: Liste des valeurs acceptées (hors back_value).
+        back_value: Valeur spéciale pour signifier un retour / annulation.
+        cast_to_int: Si True, convertit la saisie en int avant de la retourner.
+
+    Returns:
+        None si back_value est saisi, sinon str ou int selon cast_to_int.
     """
     valid = [back_value] + valid_choices
 

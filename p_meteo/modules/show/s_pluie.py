@@ -1,9 +1,13 @@
 class SPluie:
     """
-    Affiche la quantité de pluie.
+    Viewer console pour la quantité de pluie.
     """
 
     def __init__(self, record) -> None:
+        """
+        Args:
+            record: Données météo transformées.
+        """
         self.record = record
 
     def display(self) -> None:

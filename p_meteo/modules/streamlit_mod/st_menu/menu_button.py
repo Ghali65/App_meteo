@@ -1,12 +1,32 @@
 import streamlit as st
 
-# Couleur unique pour tous les boutons
+# Couleurs globales pour tous les boutons du menu
 BUTTON_COLOR = "#2196F3"
 BUTTON_HOVER = "#5F8CB9"
 
+
 def menu_button(label, description, icon, mode, button_text):
-    # Bloc visuel + bouton collé
-    st.markdown(f"""
+    """
+    Composant visuel Streamlit représentant un bloc de menu.
+
+    Structure :
+    - un encadré contenant un titre + description
+    - un bouton occupant toute la largeur
+    - un espacement entre chaque bloc
+
+    Args:
+        label (str): Titre du bloc (ex: "Afficher la météo")
+        description (str): Texte explicatif sous le titre
+        icon (str): Emoji affiché avant le label
+        mode (str): Valeur à placer dans st.session_state["mode"] lors du clic
+        button_text (str): Texte du bouton cliquable
+    """
+
+    # ---------------------------------------------------------
+    # Bloc visuel (titre + description)
+    # ---------------------------------------------------------
+    st.markdown(
+        f"""
         <div style='
             padding: 16px;
             border: 1px solid #ddd;
@@ -19,10 +39,15 @@ def menu_button(label, description, icon, mode, button_text):
             <div style='font-size: 14px; color: #555; margin-bottom: 8px;'>
                 {description}
             </div>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True
+    )
 
-    # CSS global pour les boutons
-    st.markdown(f"""
+    # ---------------------------------------------------------
+    # CSS global pour styliser les boutons Streamlit
+    # ---------------------------------------------------------
+    st.markdown(
+        f"""
         <style>
         div[data-testid="stButton"] > button {{
             background-color: {BUTTON_COLOR};
@@ -39,12 +64,18 @@ def menu_button(label, description, icon, mode, button_text):
             background-color: {BUTTON_HOVER};
         }}
         </style>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True
+    )
 
+    # ---------------------------------------------------------
     # Bouton cliquable
+    # ---------------------------------------------------------
     if st.button(button_text, key=f"btn_{mode}", use_container_width=True):
         st.session_state["mode"] = mode
         st.rerun()
 
+    # ---------------------------------------------------------
     # Espacement entre blocs
+    # ---------------------------------------------------------
     st.markdown("</div><div style='height: 16px;'></div>", unsafe_allow_html=True)

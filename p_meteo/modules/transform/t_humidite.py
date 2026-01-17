@@ -1,12 +1,12 @@
 import pandas as pd
 
+
 class THumidite:
+    """
+    Enrichit record.humidite à partir de la colonne 'humidite'.
+    """
 
     def __call__(self, df: pd.DataFrame, record):
-        """
-        Enrichit record.humidite.
-        """
-
         if df.empty:
             print("⚠️ Le DataFrame fourni est vide.")
             record.humidite = None

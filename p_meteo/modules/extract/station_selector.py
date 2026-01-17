@@ -1,25 +1,38 @@
+"""
+Sélection interactive des stations météo depuis un CSV.
+"""
+
 from typing import List, Optional
 import pandas as pd
-from ..utils.selection_parser import parse_multi_selection
-from ..utils.input_utils import ask_yes_no
-from ..utils.console_utils import clear_console
+
+from p_meteo.modules.utils.selection_parser import parse_multi_selection
+from p_meteo.modules.utils.input_utils import ask_yes_no
+from p_meteo.modules.utils.console_utils import clear_console
 
 
 class StationSelector:
     """
     Permet à l'utilisateur de choisir un ou plusieurs dataset_id
-    depuis un fichier CSV. Le fichier doit contenir une colonne 'dataset_id'.
+    depuis un fichier CSV contenant une colonne 'dataset_id'.
     """
 
     def __init__(self, csv_path: str) -> None:
-        self.stations_df: pd.DataFrame = pd.read_csv(csv_path)
+        self.stations_df = pd.read_csv(csv_path)
+
         if "dataset_id" not in self.stations_df.columns:
             raise ValueError("Le fichier CSV doit contenir une colonne 'dataset_id'.")
 
+        if self.stations_df.empty:
+            raise ValueError("Le fichier CSV ne contient aucune station.")
+
     def choose(self) -> Optional[List[str]]:
         """
-        Choix de stations via une syntaxe de type "1,3,5-7".
-        Retourne une liste de dataset_id ou None si retour utilisateur.
+        Affiche une interface console permettant de sélectionner
+        une ou plusieurs stations via une syntaxe du type '1,3,5-7'.
+
+        Retourne :
+            - une liste de dataset_id
+            - None si l'utilisateur choisit 'Retour'
         """
         max_index = len(self.stations_df)
 

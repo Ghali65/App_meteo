@@ -1,8 +1,9 @@
 import pandas as pd
 
+
 class TRafaleMax:
     """
-    Enrichit record.rafale_max.
+    Enrichit record.rafale_max à partir de la colonne 'force_rafale_max'.
     """
 
     def __call__(self, df: pd.DataFrame, record):

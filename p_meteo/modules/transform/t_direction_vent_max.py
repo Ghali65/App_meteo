@@ -1,8 +1,9 @@
 import pandas as pd
 
+
 class TDirectionVentMax:
     """
-    Enrichit record.direction_vent_max.
+    Enrichit record.direction_vent_max à partir du DataFrame.
     """
 
     def __call__(self, df: pd.DataFrame, record):

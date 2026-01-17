@@ -1,9 +1,13 @@
 class SDirectionVentMoyen:
     """
-    Affiche la direction moyenne du vent.
+    Viewer console pour la direction moyenne du vent.
     """
 
     def __init__(self, record) -> None:
+        """
+        Args:
+            record: Données météo transformées.
+        """
         self.record = record
 
     def display(self) -> None:

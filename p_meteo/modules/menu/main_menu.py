@@ -1,11 +1,29 @@
-from ..configuration import Configuration
-from ..utils.input_utils import safe_input_choice
-from ..utils.console_utils import clear_console
+"""
+Menu principal de l'application console.
+
+Affiche les différentes options disponibles :
+- Afficher la météo (avec les KPIs par défaut)
+- Personnaliser les KPIs affichés
+- Accéder au mode administrateur
+- Quitter l’application
+
+Ce menu constitue le point d’entrée de l’expérience console.
+"""
+
+from p_meteo.modules.configuration import Configuration
+from p_meteo.modules.utils.input_utils import safe_input_choice
+from p_meteo.modules.utils.console_utils import clear_console
 
 
 def main_menu():
     """
-    Menu principal de l'application console.
+    Affiche le menu principal et retourne l'action choisie.
+
+    Retourne :
+        - "show_weather"
+        - "select_kpis"
+        - "admin_mode"
+        - quitte l'application si choix "Q"
     """
     while True:
         clear_console()
@@ -30,12 +48,10 @@ def main_menu():
             print(f"     - {label}")
 
         print("\n2) Sélectionner les KPIs à afficher")
-        print("   → Personnaliser la liste des KPIS à afficher")
+        print("   → Personnaliser la liste des KPIs affichés")
 
         print("\n3) Mode administrateur")
-        print("   → Ajouter une station météo")
-        print("   → Supprimer une station météo")
-        print("   → Modifier une station météo")
+        print("   → Ajouter, supprimer ou modifier une station météo")
 
         print("\nQ) ❌  Quitter l'application\n")
 

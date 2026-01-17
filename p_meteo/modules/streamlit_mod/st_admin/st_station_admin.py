@@ -4,11 +4,23 @@ import pandas as pd
 class StStationAdmin:
     """
     Version Streamlit de StationAdmin.
-    Gère la logique métier : ajout, modification, suppression.
-    Aucune interaction console.
+
+    Cette classe gère uniquement la logique métier :
+    - ajout de station
+    - modification de station
+    - suppression de station
+
+    Contrairement à StationAdmin (console), aucune interaction utilisateur
+    n’est effectuée ici : tout est piloté depuis l’interface Streamlit.
     """
 
     def __init__(self, csv_path: str):
+        """
+        Initialise l’administrateur Streamlit des stations.
+
+        Args:
+            csv_path (str): Chemin vers le fichier CSV contenant les stations.
+        """
         self.csv_path = csv_path
         self.df = pd.read_csv(csv_path)
 
@@ -17,8 +29,14 @@ class StStationAdmin:
     # ---------------------------------------------------------
     def add(self, ville: str, dataset_id: str) -> tuple[bool, str]:
         """
-        Ajoute une station.
-        Retourne (success, message).
+        Ajoute une station dans le CSV.
+
+        Args:
+            ville (str): Nom de la ville.
+            dataset_id (str): Identifiant du dataset API.
+
+        Returns:
+            (success, message): tuple(bool, str)
         """
 
         if dataset_id in self.df["dataset_id"].values:
@@ -35,7 +53,14 @@ class StStationAdmin:
     def edit(self, index: int, nouvelle_ville: str, nouveau_dataset: str) -> tuple[bool, str]:
         """
         Modifie une station existante.
-        Retourne (success, message).
+
+        Args:
+            index (int): Index de la station dans le DataFrame.
+            nouvelle_ville (str): Nouveau nom de ville.
+            nouveau_dataset (str): Nouveau dataset_id.
+
+        Returns:
+            (success, message): tuple(bool, str)
         """
 
         if index < 0 or index >= len(self.df):
@@ -52,8 +77,13 @@ class StStationAdmin:
     # ---------------------------------------------------------
     def delete(self, indices: list[int]) -> tuple[bool, str]:
         """
-        Supprime plusieurs stations.
-        Retourne (success, message).
+        Supprime plusieurs stations à partir d’une liste d’indices.
+
+        Args:
+            indices (list[int]): Indices des stations à supprimer.
+
+        Returns:
+            (success, message): tuple(bool, str)
         """
 
         if not indices:

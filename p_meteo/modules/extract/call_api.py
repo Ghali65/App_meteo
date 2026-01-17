@@ -1,31 +1,36 @@
-from ..configuration import Configuration
-import requests
+"""
+Module d'appel à l'API Toulouse Métropole pour récupérer les données météo.
+"""
+
 from typing import Optional
+import requests
+
+from p_meteo.modules.configuration import Configuration
 
 
 class CallApi:
-    """
-    Interroge l'API Toulouse Métropole pour un dataset_id donné.
-    """
+    """Interroge l'API Toulouse Métropole pour un dataset_id donné."""
 
     def __init__(self, dataset_id: str) -> None:
-        self.dataset_id: str = dataset_id
+        self.dataset_id = dataset_id
         self.data: Optional[dict] = None
-        """
-            Importation Pattern configuration to use module get_value with the key url to call API.
-        """
-        self.configuration = Configuration()
-        self.base_url: str =  self.configuration.get_value("url")
+
+        config = Configuration()
+        self.base_url: str = config.get_value("url")
 
     def fetch(self) -> None:
-        url: str = (
+        """Récupère les données JSON les plus récentes pour la station."""
+        url = (
             f"{self.base_url}{self.dataset_id}/records?"
             "order_by=heure_de_paris%20DESC&limit=1"
         )
+
         try:
-            response = requests.get(url)
+            response = requests.get(url, timeout=5)
             response.raise_for_status()
             self.data = response.json()
+
         except requests.RequestException as error:
-            print(f"Erreur lors de la requête API : {error}")
+            print(f"\n❌ Erreur API pour {self.dataset_id} : {error}")
+            print(f"URL appelée : {url}")
             self.data = None

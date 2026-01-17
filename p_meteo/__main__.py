@@ -1,7 +1,12 @@
+"""
+Point d'entrée de l'application console P-Météo.
+Gère le menu principal et l'exécution du pipeline météo.
+"""
+
 from typing import List
 import pandas as pd
 
-# Menu
+# Menus
 from .modules.menu.main_menu import main_menu
 from .modules.menu.kpi_menu import run_kpi_selection_menu
 from .modules.menu.admin_menu import run_admin_menu
@@ -45,37 +50,36 @@ TRANSFORMER_REGISTRY = {
     "rafale_max": TRafaleMax,
     "direction_vent_max": TDirectionVentMax,
     "direction_vent_max_deg": TDirectionVentMaxDeg,
-    "direction_vent_moyen": TDirectionVentMoyen
+    "direction_vent_moyen": TDirectionVentMoyen,
 }
 
 
 def main() -> None:
-
+    """
+    Boucle principale de l'application console.
+    Gère les menus et déclenche le pipeline météo.
+    """
     configuration = Configuration()
     default_kpis = configuration.get_value("default_kpis")
 
     selected_kpis = default_kpis[:]   # KPIs actifs au démarrage
-    custom_mode = False               # False = on affiche le menu principal
+    custom_mode = False               # False = menu principal visible
 
     while True:
 
-        # Affichage du menu principal uniquement si pas en mode custom
         if not custom_mode:
             action = main_menu()
 
             if action == "show_weather":
-                # KPIs par défaut
                 selected_kpis = default_kpis[:]
                 custom_mode = False
 
             elif action == "select_kpis":
-                # Menu de sélection de KPIs
                 new_kpis = run_kpi_selection_menu()
-                if new_kpis:  # sélection valide
+                if new_kpis:
                     selected_kpis = new_kpis
-                    custom_mode = True  # on ne repassera plus par le menu principal
+                    custom_mode = True
                 else:
-                    # Aucune sélection valide → retour au menu principal
                     custom_mode = False
                     continue
 
@@ -83,11 +87,9 @@ def main() -> None:
                 run_admin_menu()
                 continue
 
-        # Lancement du pipeline météo avec les KPIs sélectionnés
         keep_running = run_weather_pipeline(selected_kpis)
 
         if keep_running is True:
-            # Relancer avec les mêmes KPIs
             custom_mode = True
             continue
 
@@ -101,30 +103,30 @@ def main() -> None:
 
 
 def run_weather_pipeline(selected_kpis):
-
+    """
+    Exécute le pipeline météo complet :
+    - sélection des stations
+    - extraction
+    - transformation
+    - affichage
+    """
     configuration = Configuration()
     csv_path: str = configuration.get_value("csv_path")
 
-    # Chargement du CSV
     stations_df = pd.read_csv(csv_path)
     mapping = dict(zip(stations_df["dataset_id"], stations_df["ville"]))
 
-    # Sélection des stations
     selector = StationSelector(csv_path)
     dataset_ids: List[str] = selector.choose()
 
-    # Gestion du retour Menu principal :
     if dataset_ids is None:
         return "MENU"
 
-    # Pipeline pour chaque station
     for dataset_id in dataset_ids:
         print(f"\n=== Traitement de la station {dataset_id} ===\n")
 
-        # 1) Extraction
         df = ExtractCommand(dataset_id, CallApi, ToDataFrame, mapping).execute()
 
-        # 2) Transformation (selon les KPIs sélectionnés)
         transformers = [
             TRANSFORMER_REGISTRY[kpi_name]()
             for kpi_name in selected_kpis
@@ -133,32 +135,29 @@ def run_weather_pipeline(selected_kpis):
 
         record = TransformCommand(df, transformers).execute()
 
-        # 3) Affichage
         ShowCommand(record, selected_kpis).execute()
 
-    # Pause utilisateur
     print("\n=====================================================================")
     print("\nAppuyez sur Entrée pour relancer avec les mêmes KPIs.")
     print("\nTapez M pour revenir au menu principal.")
     print("\nOu tapez Q pour quitter.")
     print("\n=====================================================================\n")
+
     while True:
         action = input("Votre choix : ").strip().upper()
         print("⏎ Action utilisateur :", action)
 
         if action == "":
-            return True  # Relancer avec les mêmes KPIs
+            return True
 
         if action == "M":
-            return "MENU"  # Retour au menu principal
+            return "MENU"
 
         if action == "Q":
-            return False  # Quitter l'application
+            return False
 
-        # Si on arrive ici → saisie invalide
         print("\n❌ Saisie invalide.")
         print("Veuillez taper Entrée, M ou Q.")
-
 
 
 if __name__ == "__main__":

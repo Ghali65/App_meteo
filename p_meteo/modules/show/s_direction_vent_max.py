@@ -1,9 +1,13 @@
 class SDirectionVentMax:
     """
-    Affiche la direction du vent maximal.
+    Viewer console pour la direction du vent maximal (en points cardinaux).
     """
 
     def __init__(self, record) -> None:
+        """
+        Args:
+            record: Données météo transformées.
+        """
         self.record = record
 
     def display(self) -> None:

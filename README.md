@@ -9,6 +9,16 @@ Il s’agit d’une application météo **modulaire**, capable de fonctionner :
 L’application permet de consulter les données météo de différentes villes, d’administrer une liste de stations, et d’afficher plusieurs indicateurs (température, humidité, vent…).
 
 ---
+## 🧩 Prérequis
+
+Ce projet a été développé et testé avec :
+
+- **Python 3.12.3**
+- pip 23+ recommandé
+
+Assure‑toi d’utiliser une version compatible pour éviter les problèmes liés aux dépendances ou aux nouveautés du langage.
+
+---
 
 ## 🎯 Objectifs pédagogiques
 
@@ -160,7 +170,7 @@ disable=
 
 Ces règles génèrent des faux positifs dans un projet structuré autour de :
 
-- classes simples (transformers, viewers, commands)
+- classes simples (transformers, viewers, commands...)
 - menus console ou Streamlit naturellement verbeux
 - formulaires d’administration avec beaucoup de champs
 

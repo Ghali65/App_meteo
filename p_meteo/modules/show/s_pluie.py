@@ -1,6 +1,10 @@
+"""
+Viewer console pour la quantité de pluie.
+"""
+
 class SPluie:
     """
-    Viewer console pour la quantité de pluie.
+    Classe Viewer console pour la quantité de pluie.
     """
 
     def __init__(self, record) -> None:
@@ -11,4 +15,5 @@ class SPluie:
         self.record = record
 
     def display(self) -> None:
+        """Affiche la quantité de pluie."""
         print("🌧️ Pluie :", self.record.pluie)

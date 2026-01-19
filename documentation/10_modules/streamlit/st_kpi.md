@@ -37,12 +37,12 @@ class St_KPI:
 
 ---
 
-# 3. Exemple réel : `St_Humidite`
+# 3. Exemple réel : `StHumidite`
 
 ```python
 import streamlit as st
 
-class St_Humidite:
+class StHumidite:
     def __init__(self, record) -> None:
         self.record = record
 
@@ -77,7 +77,7 @@ Voici les viewers présents dans `st_show/` :
 - `st_direction_vent_max_deg.py`  
 - `st_direction_vent_moyen.py`
 
-Tous suivent la même structure que `St_Humidite`.
+Tous suivent la même structure que `StHumidite`.
 
 ---
 

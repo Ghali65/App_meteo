@@ -1,3 +1,14 @@
+"""
+Transformer métier pour l’intensité maximale de pluie.
+
+Ce module lit la colonne :
+    - "pluie_intensite_max"
+et renseigne l’attribut `pluie_max` du Record.
+
+Il s’inscrit dans la chaîne Extract → Transform → Viewers
+et se limite à enrichir la donnée sans gérer l’affichage.
+"""
+
 import pandas as pd
 
 

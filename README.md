@@ -122,6 +122,63 @@ Description complète du flux de données :
 - affichage console et Streamlit  
 - schémas Mermaid du pipeline
 
+## 5. 🔍 Analyse de code avec Pylint
+
+Le projet inclut une configuration personnalisée de **Pylint**, afin d’assurer une qualité de code homogène tout en respectant l’architecture modulaire du projet (Command pattern, Transformers, Viewers…).
+
+### ✔️ Lancer l’analyse Pylint
+
+Depuis la racine du projet :
+
+```bash
+PYTHONPATH=p_meteo pylint p_meteo
+```
+
+Cette commande :
+
+- ajoute `p_meteo/` au `PYTHONPATH`
+- analyse tout le code source
+- applique automatiquement les règles définies dans `.pylintrc`
+
+---
+
+### ✔️ Fichier `.pylintrc` (inclus à la racine du projet)
+
+Le fichier `.pylintrc` désactive uniquement les règles **non pertinentes** pour ce type d’architecture :
+
+```ini
+[MASTER]
+ignore=__pycache__
+
+[MESSAGES CONTROL]
+disable=
+    R0903,  # too-few-public-methods (classes utilitaires ou patterns)
+    R0912,  # too-many-branches (menus console / formulaires Streamlit)
+    R0914,  # too-many-locals (fonctions verbeuses par nature)
+    R0915,  # too-many-statements (menus complexes)
+```
+
+Ces règles génèrent des faux positifs dans un projet structuré autour de :
+
+- classes simples (transformers, viewers, commands)
+- menus console ou Streamlit naturellement verbeux
+- formulaires d’administration avec beaucoup de champs
+
+👉 Toutes les autres règles Pylint restent actives :  
+imports, variables inutilisées, exceptions trop larges, conventions, etc.
+
+---
+
+### ✔️ Résultat attendu
+
+Avec cette configuration, le projet obtient un score stable de :
+
+```
+10.00 / 10
+```
+
+tout en conservant une analyse statique pertinente et utile.
+
 ---
 
 ## 📝 Licence

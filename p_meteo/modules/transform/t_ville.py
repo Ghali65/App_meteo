@@ -1,3 +1,14 @@
+"""
+Transformer métier pour le nom de la ville.
+
+Ce module lit la colonne :
+    - "ville"
+et renseigne l’attribut `ville` du Record.
+
+Il s’inscrit dans la chaîne Extract → Transform → Viewers
+et se limite à enrichir la donnée sans gérer l’affichage.
+"""
+
 import pandas as pd
 
 

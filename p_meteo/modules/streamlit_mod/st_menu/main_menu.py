@@ -1,3 +1,16 @@
+"""
+Menu principal Streamlit de l'application météo.
+
+Cette interface permet à l'utilisateur de :
+- lancer l'affichage météo avec les KPIs sélectionnés
+- personnaliser la liste des KPIs
+- accéder au mode administrateur
+- quitter l'application
+
+Toute la logique métier est déléguée aux modules spécialisés ;
+ce fichier gère uniquement la navigation dans l'interface Streamlit.
+"""
+
 import streamlit as st
 from modules.configuration import Configuration
 from modules.streamlit_mod.st_menu.menu_button import menu_button

@@ -1,6 +1,14 @@
+"""
+Viewer console pour la pression atmosphérique.
+
+Remarque :
+- display est utilisé comme un "pattern décorateur" :
+    il enrichit l’affichage en se basant sur Record.
+"""
+
 class SPression:
     """
-    Viewer console pour la pression atmosphérique.
+    Classe Viewer console pour la pression atmosphérique.
 
     Remarque :
     - display est utilisé comme un "pattern décorateur" :
@@ -15,4 +23,5 @@ class SPression:
         self.record = record
 
     def display(self) -> None:
+        """Affiche la pression"""
         print("📊 Pression :", self.record.pression)

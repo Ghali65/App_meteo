@@ -1,7 +1,18 @@
+"""
+Viewer Streamlit pour le nom de la ville associée à une station météo.
+
+Ce module fournit un composant utilisé dans la LinkedList Streamlit
+pour afficher le KPI `ville` :
+- via display() sous forme de texte enrichi
+- via get_value() sous forme de couple (label, valeur) pour tableaux ou exports.
+
+La logique métier reste dans Record ; ce viewer ne gère que la présentation.
+"""
+
 import streamlit as st
 
 
-class St_Ville:
+class StVille:
     """
     Viewer Streamlit pour le nom de la ville associée à la station météo.
     """

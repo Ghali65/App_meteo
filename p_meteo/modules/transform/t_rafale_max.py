@@ -1,3 +1,14 @@
+"""
+Transformer métier pour la rafale maximale enregistrée.
+
+Ce module lit la colonne :
+    - "force_rafale_max"
+et renseigne l’attribut `rafale_max` du Record.
+
+Il s’inscrit dans la chaîne Extract → Transform → Viewers
+et se limite à enrichir la donnée sans gérer l’affichage.
+"""
+
 import pandas as pd
 
 

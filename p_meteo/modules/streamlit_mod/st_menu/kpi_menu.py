@@ -1,3 +1,14 @@
+"""
+Interface Streamlit permettant de personnaliser les KPIs affichés.
+
+Ce module propose une page dédiée où l’utilisateur peut :
+- sélectionner les KPIs disponibles
+- visualiser la sélection en temps réel
+- sauvegarder la configuration choisie
+
+La logique métier reste dans Configuration ; ce module gère uniquement l’UI.
+"""
+
 import streamlit as st
 
 

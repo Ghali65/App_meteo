@@ -1,3 +1,17 @@
+"""
+Page Streamlit dédiée à l’affichage météo.
+
+Cette interface permet :
+- de sélectionner une ou plusieurs stations météo
+- d’extraire les données via l’API (ExtractCommand)
+- d’appliquer dynamiquement les transformers selon les KPIs choisis
+- de construire une LinkedList de viewers Streamlit
+- d’afficher les résultats sous forme de tableau HTML
+
+Toute la logique métier (extraction, transformation, mapping KPI → transformer)
+est déléguée aux modules spécialisés ; ce fichier gère uniquement l’UI.
+"""
+
 import pandas as pd
 import streamlit as st
 
@@ -10,34 +24,7 @@ from modules.extract.to_dataframe import ToDataFrame
 from modules.streamlit_mod.st_show.st_build_viewer_list import build_streamlit_viewer_list
 
 # Transformers
-from modules.transform.t_ville import TVille
-from modules.transform.t_temperature import TTemperature
-from modules.transform.t_heure_maj import THeureMaj
-from modules.transform.t_humidite import THumidite
-from modules.transform.t_pression import TPression
-from modules.transform.t_pluie import TPluie
-from modules.transform.t_pluie_max import TPluieMax
-from modules.transform.t_vent_moyen import TVentMoyen
-from modules.transform.t_rafale_max import TRafaleMax
-from modules.transform.t_direction_vent_max import TDirectionVentMax
-from modules.transform.t_direction_vent_max_deg import TDirectionVentMaxDeg
-from modules.transform.t_direction_vent_moyen import TDirectionVentMoyen
-
-# Mapping nom technique → classe transformer
-TRANSFORMER_REGISTRY = {
-    "ville": TVille,
-    "temperature": TTemperature,
-    "heure_maj": THeureMaj,
-    "humidite": THumidite,
-    "pression": TPression,
-    "pluie": TPluie,
-    "pluie_max": TPluieMax,
-    "vent_moyen": TVentMoyen,
-    "rafale_max": TRafaleMax,
-    "direction_vent_max": TDirectionVentMax,
-    "direction_vent_max_deg": TDirectionVentMaxDeg,
-    "direction_vent_moyen": TDirectionVentMoyen,
-}
+from modules.transform.transformer_registry import TRANSFORMER_REGISTRY
 
 
 def show_weather(config):

@@ -1,3 +1,14 @@
+"""
+Transformer métier pour la direction moyenne du vent.
+
+Ce module lit la colonne :
+    - "direction_du_vecteur_vent_moyen"
+et renseigne l’attribut `direction_vent_moyen` du Record.
+
+Il s’intègre dans la chaîne Extract → Transform → Viewers
+et se limite à enrichir la donnée sans gérer l’affichage.
+"""
+
 import pandas as pd
 
 

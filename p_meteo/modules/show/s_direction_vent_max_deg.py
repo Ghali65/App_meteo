@@ -1,6 +1,14 @@
+"""
+Viewer console pour la direction du vent maximal en degrés.
+
+Pattern :
+- reçoit un objet Record
+- expose une méthode display() qui lit un attribut du Record
+"""
+
 class SDirectionVentMaxDeg:
     """
-    Viewer console pour la direction du vent maximal en degrés.
+    Classe Viewer console pour la direction du vent maximal en °.
 
     Pattern :
     - reçoit un objet Record
@@ -17,4 +25,5 @@ class SDirectionVentMaxDeg:
         self.record = record
 
     def display(self) -> None:
+        """Affiche direction vent max en degré"""
         print("🧭📐 Direction vent max (°) :", self.record.direction_vent_max_deg)

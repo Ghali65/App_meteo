@@ -1,3 +1,15 @@
+"""
+Module Streamlit dédié à la gestion des stations météo.
+
+Cette classe encapsule uniquement la logique métier :
+- ajout de station
+- modification de station
+- suppression de station
+
+Toutes les interactions utilisateur sont gérées par l'interface Streamlit,
+ce module ne fait que manipuler le CSV et renvoyer des statuts.
+"""
+
 import pandas as pd
 
 

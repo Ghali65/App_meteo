@@ -1,6 +1,10 @@
+"""
+Viewer console pour la rafale maximale enregistrée.
+"""
+
 class SRafaleMax:
     """
-    Viewer console pour la rafale maximale enregistrée.
+    Classe Viewer console pour la rafale maximale enregistrée.
     """
 
     def __init__(self, record) -> None:
@@ -11,4 +15,5 @@ class SRafaleMax:
         self.record = record
 
     def display(self) -> None:
+        """Affiche rafale de vent max"""
         print("💨 Rafale max :", self.record.rafale_max)

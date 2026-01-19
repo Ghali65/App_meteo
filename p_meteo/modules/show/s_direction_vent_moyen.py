@@ -1,6 +1,10 @@
+"""
+Viewer console pour la direction moyenne du vent.
+"""
+
 class SDirectionVentMoyen:
     """
-    Viewer console pour la direction moyenne du vent.
+    Classe Viewer console pour la direction moyenne du vent.
     """
 
     def __init__(self, record) -> None:
@@ -11,4 +15,5 @@ class SDirectionVentMoyen:
         self.record = record
 
     def display(self) -> None:
+        """Affiche la direction du vent moyen"""
         print("🧭➡️ Direction vent moyen :", self.record.direction_vent_moyen)

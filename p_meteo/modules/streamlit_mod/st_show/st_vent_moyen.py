@@ -1,7 +1,18 @@
+"""
+Viewer Streamlit pour la force moyenne du vent.
+
+Ce module fournit un composant utilisé dans la LinkedList Streamlit
+pour afficher le KPI `vent_moyen` :
+- via display() sous forme de métrique
+- via get_value() sous forme de couple (label, valeur) pour tableaux ou exports.
+
+La logique métier reste dans Record ; ce viewer ne gère que la présentation.
+"""
+
 import streamlit as st
 
 
-class St_VentMoyen:
+class StVentMoyen:
     """
     Viewer Streamlit pour la force moyenne du vent.
     """

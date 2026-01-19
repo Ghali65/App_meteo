@@ -1,7 +1,18 @@
+"""
+Viewer Streamlit pour la température en degrés Celsius.
+
+Ce module fournit un composant utilisé dans la LinkedList Streamlit
+pour afficher le KPI `temperature` :
+- via display() sous forme de métrique
+- via get_value() sous forme de couple (label, valeur) pour tableaux ou exports.
+
+La logique métier reste dans Record ; ce viewer ne gère que la présentation.
+"""
+
 import streamlit as st
 
 
-class St_Temperature:
+class StTemperature:
     """
     Viewer Streamlit pour la température en degrés Celsius.
     """

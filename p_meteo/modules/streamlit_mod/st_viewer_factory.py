@@ -19,18 +19,18 @@ from modules.configuration import Configuration
 # 📦 Imports explicites des viewers Streamlit
 # Chaque viewer doit être importé ici pour être disponible dans le registre.
 # ----------------------------------------------------------------------
-from .st_show.st_ville import St_Ville
-from .st_show.st_temperature import St_Temperature
-from .st_show.st_heure_maj import St_HeureMaj
-from .st_show.st_humidite import St_Humidite
-from .st_show.st_pression import St_Pression
-from .st_show.st_pluie import St_Pluie
-from .st_show.st_pluie_max import St_PluieMax
-from .st_show.st_vent_moyen import St_VentMoyen
-from .st_show.st_rafale_max import St_RafaleMax
-from .st_show.st_direction_vent_max import St_DirectionVentMax
-from .st_show.st_direction_vent_max_deg import St_DirectionVentMaxDeg
-from .st_show.st_direction_vent_moyen import St_DirectionVentMoyen
+from .st_show.st_ville import StVille
+from .st_show.st_temperature import StTemperature
+from .st_show.st_heure_maj import StHeureMaj
+from .st_show.st_humidite import StHumidite
+from .st_show.st_pression import StPression
+from .st_show.st_pluie import StPluie
+from .st_show.st_pluie_max import StPluieMax
+from .st_show.st_vent_moyen import StVentMoyen
+from .st_show.st_rafale_max import StRafaleMax
+from .st_show.st_direction_vent_max import StDirectionVentMax
+from .st_show.st_direction_vent_max_deg import StDirectionVentMaxDeg
+from .st_show.st_direction_vent_moyen import StDirectionVentMoyen
 
 
 class StreamlitViewerFactory:
@@ -40,8 +40,8 @@ class StreamlitViewerFactory:
     Exemple :
         viewer_type = "temperature"
         → config.json donne "STemperature"
-        → _class_mapping donne la classe St_Temperature
-        → on retourne St_Temperature(record)
+        → _class_mapping donne la classe StTemperature
+        → on retourne StTemperature (record)
     """
 
     # ------------------------------------------------------------------
@@ -49,18 +49,18 @@ class StreamlitViewerFactory:
     # Ce dictionnaire doit contenir toutes les classes importées ci-dessus.
     # ------------------------------------------------------------------
     _class_mapping = {
-        "SVille": St_Ville,
-        "SHeureMaj": St_HeureMaj,
-        "STemperature": St_Temperature,
-        "SHumidite": St_Humidite,
-        "SPression": St_Pression,
-        "SPluie": St_Pluie,
-        "SPluieMax": St_PluieMax,
-        "SVentMoyen": St_VentMoyen,
-        "SRafaleMax": St_RafaleMax,
-        "SDirectionVentMax": St_DirectionVentMax,
-        "SDirectionVentMaxDeg": St_DirectionVentMaxDeg,
-        "SDirectionVentMoyen": St_DirectionVentMoyen,
+        "SVille": StVille,
+        "SHeureMaj": StHeureMaj,
+        "STemperature": StTemperature,
+        "SHumidite": StHumidite,
+        "SPression": StPression,
+        "SPluie": StPluie,
+        "SPluieMax": StPluieMax,
+        "SVentMoyen": StVentMoyen,
+        "SRafaleMax": StRafaleMax,
+        "SDirectionVentMax": StDirectionVentMax,
+        "SDirectionVentMaxDeg": StDirectionVentMaxDeg,
+        "SDirectionVentMoyen": StDirectionVentMoyen,
     }
 
     @classmethod
@@ -79,7 +79,7 @@ class StreamlitViewerFactory:
             record (Record): objet Record contenant les valeurs transformées
 
         Returns:
-            Instance d’un viewer Streamlit (ex: St_Temperature(record))
+            Instance d’un viewer Streamlit (ex: StTemperature (record))
 
         Raises:
             ValueError: si le KPI ou la classe viewer n’existe pas

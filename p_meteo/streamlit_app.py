@@ -1,3 +1,8 @@
+"""
+Point d’entrée de la version Streamlit de l’application météo.
+Gère la navigation, l’état de session et déclenche le pipeline météo.
+"""
+
 import streamlit as st
 from modules.configuration import Configuration
 from modules.streamlit_mod.st_menu.main_menu import show_main_menu

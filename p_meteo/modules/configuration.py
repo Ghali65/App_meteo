@@ -37,11 +37,15 @@ class Configuration:
                 with open(cls.CONFIG_PATH, "r", encoding="utf-8") as jsn_config:
                     cls._instance._config = json.load(jsn_config)
 
-            except FileNotFoundError:
-                raise FileNotFoundError(f"⚠️ Fichier {cls.CONFIG_PATH} introuvable.")
+            except FileNotFoundError as exc:
+                raise FileNotFoundError(
+                    f"⚠️ Fichier {cls.CONFIG_PATH} introuvable."
+                    ) from exc
 
-            except json.JSONDecodeError:
-                raise ValueError("⚠️ Fichier config.json invalide (JSON mal formé).")
+            except json.JSONDecodeError as exc:
+                raise ValueError(
+                    "⚠️ Fichier config.json invalide (JSON mal formé)."
+                    ) from exc
 
         return cls._instance
 

@@ -164,7 +164,6 @@ APP_METEO/
             ├── __init__.py
             ├── console_utils.py
             ├── input_utils.py
-            ├── safe_input_choice.py
             └── selection_parser.py
 ```
 

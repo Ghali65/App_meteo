@@ -1,6 +1,10 @@
+"""
+Viewer console pour la direction du vent maximal.
+"""
+
 class SDirectionVentMax:
     """
-    Viewer console pour la direction du vent maximal (en points cardinaux).
+    Classe Viewer console pour la direction du vent maximal.
     """
 
     def __init__(self, record) -> None:
@@ -11,4 +15,5 @@ class SDirectionVentMax:
         self.record = record
 
     def display(self) -> None:
+        """Affiche la direction du vent maximal."""
         print("🧭 Direction vent max :", self.record.direction_vent_max)

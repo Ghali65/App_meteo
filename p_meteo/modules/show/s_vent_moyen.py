@@ -1,6 +1,10 @@
+"""
+Viewer console pour la force moyenne du vent.
+"""
+
 class SVentMoyen:
     """
-    Viewer console pour la force moyenne du vent.
+    Classe Viewer console pour la force moyenne du vent.
     """
 
     def __init__(self, record) -> None:
@@ -11,4 +15,5 @@ class SVentMoyen:
         self.record = record
 
     def display(self) -> None:
+        """Affiche le vent moyen"""
         print("🍃 Vent moyen :", self.record.vent_moyen)

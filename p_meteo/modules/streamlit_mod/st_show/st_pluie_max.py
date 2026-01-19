@@ -1,7 +1,18 @@
+"""
+Viewer Streamlit pour l’intensité maximale de pluie.
+
+Ce module fournit un composant utilisé dans la LinkedList Streamlit
+pour afficher le KPI `pluie_max` :
+- via display() sous forme de métrique
+- via get_value() sous forme de couple (label, valeur) pour tableaux ou exports.
+
+La logique métier reste dans Record ; ce viewer ne gère que la présentation.
+"""
+
 import streamlit as st
 
 
-class St_PluieMax:
+class StPluieMax:
     """
     Viewer Streamlit pour l’intensité maximale de pluie.
     """

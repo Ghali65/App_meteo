@@ -95,10 +95,10 @@ class St_KPI:
         ...
 ```
 
-Exemple réel : `St_Humidite`
+Exemple réel : `StHumidite`
 
 ```python
-class St_Humidite:
+class StHumidite:
     def __init__(self, record) -> None:
         self.record = record
 
@@ -133,7 +133,7 @@ Voici les viewers présents dans `st_show/` :
 - `st_direction_vent_max_deg.py`  
 - `st_direction_vent_moyen.py`
 
-Tous suivent la même structure que `St_Humidite`.
+Tous suivent la même structure que `StHumidite`.
 
 ---
 

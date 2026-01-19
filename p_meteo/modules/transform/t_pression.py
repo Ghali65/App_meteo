@@ -1,3 +1,14 @@
+"""
+Transformer métier pour la pression atmosphérique.
+
+Ce module lit la colonne :
+    - "pression"
+et renseigne l’attribut `pression` du Record.
+
+Il s’inscrit dans la chaîne Extract → Transform → Viewers
+et se limite à enrichir la donnée sans gérer l’affichage.
+"""
+
 import pandas as pd
 
 

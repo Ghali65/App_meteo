@@ -1,7 +1,18 @@
+"""
+Viewer Streamlit pour la direction maximale du vent.
+
+Ce module définit un viewer utilisé dans la version Streamlit
+pour afficher le KPI `direction_vent_max` :
+- soit sous forme de métrique (méthode display)
+- soit sous forme de couple (label, valeur) pour les tableaux ou listes.
+
+La logique métier reste dans Record ; ce viewer ne fait qu’exposer la donnée.
+"""
+
 import streamlit as st
 
 
-class St_DirectionVentMax:
+class StDirectionVentMax:
     """
     Viewer Streamlit pour la direction maximale du vent.
     """

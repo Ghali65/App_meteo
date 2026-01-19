@@ -1,3 +1,14 @@
+"""
+Transformer métier pour la direction maximale du vent.
+
+Ce module lit la colonne :
+    - "direction_du_vecteur_de_vent_max"
+et renseigne l’attribut `direction_vent_max` du Record.
+
+Il fait partie de la chaîne Extract → Transform → Viewers
+et ne gère que l’enrichissement de la donnée, sans logique d’affichage.
+"""
+
 import pandas as pd
 
 

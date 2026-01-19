@@ -12,7 +12,7 @@ La `StreamlitViewerFactory` :
 - reçoit un nom technique de KPI (ex : `"humidite"`)  
 - consulte le mapping dans `config.json`  
 - retrouve le nom de classe associé (ex : `"SHumidite"`)  
-- instancie la classe réelle (ex : `St_Humidite`)  
+- instancie la classe réelle (ex : `StHumidite`)  
 - retourne le viewer prêt à être inséré dans la `LinkedList`
 
 ---
@@ -36,9 +36,10 @@ Extrait de `config.json` :
 
 ```python
 _class_mapping = {
-    "SHumidite": St_Humidite,
-    "SPression": St_Pression,
-    "SPluie": St_Pluie,
+    "SHumidite": StHumidite,
+    "SPression": StPression,
+    "SPluie": StPluie
+,
     ...
 }
 ```

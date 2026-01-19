@@ -1,3 +1,10 @@
+"""
+Interface Streamlit du mode administrateur.
+
+Gère l’affichage, l’ajout, la modification et la suppression
+des stations météo via l’interface graphique.
+"""
+
 import streamlit as st
 
 from modules.configuration import Configuration
@@ -54,12 +61,13 @@ def show_admin():
     with tab_ajout:
         st.markdown("#### ➕ Ajouter une nouvelle station")
 
-        # Message du cycle précédent
         if "admin_add_message" in st.session_state:
             msg, is_success = st.session_state.pop("admin_add_message")
-            st.success(msg) if is_success else st.error(msg)
+            if is_success:
+                st.success(msg)
+            else:
+                st.error(msg)
 
-        # Clé unique pour éviter les collisions Streamlit
         form_key = st.session_state.get("admin_add_form_key", 0)
 
         result = st_station_form(stations_df, form_key=f"add_{form_key}")
@@ -68,10 +76,7 @@ def show_admin():
             ville, dataset_id = result
             success, msg = admin.add(ville, dataset_id)
 
-            # Stockage du message pour affichage après rerun
             st.session_state["admin_add_message"] = (msg, success)
-
-            # Réinitialisation du formulaire
             st.session_state["admin_add_form_key"] = form_key + 1
 
             st.rerun()
@@ -82,10 +87,12 @@ def show_admin():
     with tab_modif:
         st.markdown("#### ✏️ Modifier une station existante")
 
-        # Message du cycle précédent
         if "admin_edit_message" in st.session_state:
             msg, is_success = st.session_state.pop("admin_edit_message")
-            st.success(msg) if is_success else st.error(msg)
+            if is_success:
+                st.success(msg)
+            else:
+                st.error(msg)
 
         if stations_df.empty:
             st.info("Aucune station à modifier.")
@@ -101,7 +108,6 @@ def show_admin():
                 key="select_modif"
             )
 
-            # Réinitialisation du formulaire si changement de sélection
             if (
                 "last_edit_selection" not in st.session_state
                 or st.session_state["last_edit_selection"] != selection
@@ -137,10 +143,12 @@ def show_admin():
     with tab_suppr:
         st.markdown("#### 🗑️ Supprimer une ou plusieurs stations")
 
-        # Message du cycle précédent
         if "admin_delete_message" in st.session_state:
             msg, is_success = st.session_state.pop("admin_delete_message")
-            st.success(msg) if is_success else st.error(msg)
+            if is_success:
+                st.success(msg)
+            else:
+                st.error(msg)
 
         if stations_df.empty:
             st.info("Aucune station à supprimer.")
@@ -165,9 +173,6 @@ def show_admin():
 
     st.markdown("---")
 
-    # ---------------------------------------------------------
-    # RETOUR MENU PRINCIPAL
-    # ---------------------------------------------------------
     if st.button("🏠 Retour menu principal", key="back_menu"):
         st.session_state["mode"] = "menu"
         st.rerun()

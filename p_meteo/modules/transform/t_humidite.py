@@ -1,3 +1,14 @@
+"""
+Transformer métier pour le taux d’humidité.
+
+Ce module lit la colonne :
+    - "humidite"
+et renseigne l’attribut `humidite` du Record.
+
+Il s’intègre dans la chaîne Extract → Transform → Viewers
+et se limite à enrichir la donnée sans gérer l’affichage.
+"""
+
 import pandas as pd
 
 

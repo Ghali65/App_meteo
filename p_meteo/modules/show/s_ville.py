@@ -1,6 +1,10 @@
+"""
+Viewer console pour le nom de la ville associée à la station météo.
+"""
+
 class SVille:
     """
-    Viewer console pour le nom de la ville associée à la station météo.
+    Classe Viewer console pour le nom de la ville associée à la station météo.
     """
 
     def __init__(self, record) -> None:
@@ -11,4 +15,5 @@ class SVille:
         self.record = record
 
     def display(self) -> None:
+        """Affiche la ville"""
         print("🏙️ Ville :", self.record.ville)

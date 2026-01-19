@@ -1,7 +1,18 @@
+"""
+Viewer Streamlit pour l’heure de dernière mise à jour.
+
+Ce module fournit un composant utilisé dans la LinkedList Streamlit
+pour afficher le KPI `heure_maj` :
+- via display() sous forme de texte enrichi
+- via get_value() sous forme de couple (label, valeur) pour tableaux ou exports.
+
+La logique métier reste dans Record ; ce viewer ne gère que la présentation.
+"""
+
 import streamlit as st
 
 
-class St_HeureMaj:
+class StHeureMaj:
     """
     Viewer Streamlit pour l’heure de dernière mise à jour.
     """

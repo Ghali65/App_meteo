@@ -1,3 +1,15 @@
+"""
+Fonction utilitaire pour parser une sélection multiple saisie en console.
+
+Ce module fournit parse_multi_selection(), qui interprète des chaînes
+du type "1,3-5,7" et retourne une liste d’indices valides. Les plages
+numériques sont développées, les doublons supprimés et les valeurs
+hors bornes provoquent un retour à None.
+
+Cette fonction est utilisée pour permettre à l’utilisateur de sélectionner
+plusieurs éléments en une seule saisie.
+"""
+
 from typing import List, Optional
 
 
@@ -39,5 +51,5 @@ def parse_multi_selection(selection: str, max_index: int) -> Optional[List[int]]
 
         return sorted(set(result))
 
-    except Exception:
+    except (ValueError, TypeError):
         return None

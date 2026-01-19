@@ -9,10 +9,10 @@ Affiche les différentes options disponibles :
 
 Ce menu constitue le point d’entrée de l’expérience console.
 """
-
+import sys
 from ..configuration import Configuration
-from ..utils.safe_input_choice import safe_input_choice
 from ..utils.console_utils import clear_console
+from ..utils.input_utils import safe_input_choice
 
 
 def main_menu():
@@ -55,14 +55,14 @@ def main_menu():
 
         print("\nQ) ❌  Quitter l'application\n")
 
-        choix = safe_input_choice("Votre choix : ", ["1", "2", "3", "Q"])
+        choix = safe_input_choice("Votre choix : ", ["1", "2", "3", "Q"], cast_to_int=False)
 
         if choix == "1":
             return "show_weather"
-        elif choix == "2":
+        if choix == "2":
             return "select_kpis"
-        elif choix == "3":
+        if choix == "3":
             return "admin_mode"
-        elif choix == "Q":
+        if choix == "Q":
             print("\n👋 Au revoir !\n")
-            exit()
+            sys.exit()

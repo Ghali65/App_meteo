@@ -1,3 +1,14 @@
+"""
+Transformer métier pour la quantité de pluie.
+
+Ce module lit la colonne :
+    - "pluie"
+et renseigne l’attribut `pluie` du Record.
+
+Il s’inscrit dans la chaîne Extract → Transform → Viewers
+et se limite à enrichir la donnée sans gérer l’affichage.
+"""
+
 import pandas as pd
 
 

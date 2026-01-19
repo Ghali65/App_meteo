@@ -1,7 +1,18 @@
+"""
+Viewer Streamlit pour la rafale maximale enregistrée.
+
+Ce module fournit un composant utilisé dans la LinkedList Streamlit
+pour afficher le KPI `rafale_max` :
+- via display() sous forme de métrique
+- via get_value() sous forme de couple (label, valeur) pour tableaux ou exports.
+
+La logique métier reste dans Record ; ce viewer ne gère que la présentation.
+"""
+
 import streamlit as st
 
 
-class St_RafaleMax:
+class StRafaleMax:
     """
     Viewer Streamlit pour la rafale maximale enregistrée.
     """

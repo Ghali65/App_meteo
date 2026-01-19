@@ -2,8 +2,8 @@
 Formulaire console pour ajouter ou modifier une station météo.
 """
 
-import pandas as pd
 from typing import Optional, Tuple
+import pandas as pd
 
 from ..utils.console_utils import clear_console
 from ..utils.input_utils import (

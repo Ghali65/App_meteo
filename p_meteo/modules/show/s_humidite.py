@@ -1,6 +1,10 @@
+"""
+Viewer console pour le taux d’humidité.
+"""
+
 class SHumidite:
     """
-    Viewer console pour le taux d’humidité.
+    Classe Viewer console pour le taux d’humidité.
     """
 
     def __init__(self, record) -> None:
@@ -11,4 +15,5 @@ class SHumidite:
         self.record = record
 
     def display(self) -> None:
+        """Affichage taux humidité"""
         print("💧 Humidité :", self.record.humidite)

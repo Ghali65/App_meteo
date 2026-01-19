@@ -1,7 +1,18 @@
+"""
+Viewer Streamlit pour la quantité de pluie.
+
+Ce module fournit un composant utilisé dans la LinkedList Streamlit
+pour afficher le KPI `pluie` :
+- via display() sous forme de métrique
+- via get_value() sous forme de couple (label, valeur) pour tableaux ou exports.
+
+La logique métier reste dans Record ; ce viewer ne gère que la présentation.
+"""
+
 import streamlit as st
 
 
-class St_Pluie:
+class StPluie:
     """
     Viewer Streamlit pour la quantité de pluie.
     """

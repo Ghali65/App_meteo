@@ -1,3 +1,11 @@
+"""
+Fonction utilitaire pour nettoyer la console.
+
+Ce module fournit clear_console(), une fonction compatible Windows,
+Linux et macOS, qui exécute la commande système appropriée pour
+effacer l’affichage du terminal.
+"""
+
 import os
 
 

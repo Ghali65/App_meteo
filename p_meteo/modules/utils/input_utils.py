@@ -1,3 +1,15 @@
+"""
+Fonctions utilitaires pour sécuriser les saisies utilisateur en console.
+
+Ce module fournit :
+- ask_yes_no() : pose une question fermée (O/N) et valide la réponse.
+- safe_input_choice() : impose un choix parmi une liste de valeurs autorisées.
+- safe_input_back_or_choice() : variante permettant un choix de retour/annulation.
+
+Toutes les fonctions bouclent jusqu'à obtenir une saisie correcte et
+uniformisent les entrées (trim + majuscules).
+"""
+
 def ask_yes_no(prompt: str) -> bool:
     """
     Pose une question fermée (O/N) et boucle tant que la réponse n'est pas valide.

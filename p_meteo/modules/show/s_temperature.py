@@ -1,6 +1,10 @@
+"""
+Viewer console pour la température en degrés Celsius.
+"""
+
 class STemperature:
     """
-    Viewer console pour la température en degrés Celsius.
+    Classe Viewer console pour la température en degrés Celsius.
     """
 
     def __init__(self, record) -> None:
@@ -11,4 +15,5 @@ class STemperature:
         self.record = record
 
     def display(self) -> None:
+        """Affiche la température"""
         print("🌡️ Température :", self.record.temperature)

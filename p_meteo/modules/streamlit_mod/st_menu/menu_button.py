@@ -1,3 +1,14 @@
+"""
+Composant de bouton de menu pour l’interface Streamlit.
+
+Ce module définit un bloc visuel réutilisable composé :
+- d’un encadré avec titre, icône et description
+- d’un bouton pleine largeur stylisé via CSS
+- d’un mécanisme de navigation basé sur st.session_state["mode"]
+
+Il est utilisé par le menu principal pour proposer des actions claires et homogènes.
+"""
+
 import streamlit as st
 
 # Couleurs globales pour tous les boutons du menu

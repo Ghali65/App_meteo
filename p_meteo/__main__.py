@@ -20,38 +20,10 @@ from .modules.extract.call_api import CallApi
 from .modules.extract.to_dataframe import ToDataFrame
 
 # Transformateurs
-from .modules.transform.t_ville import TVille
-from .modules.transform.t_temperature import TTemperature
-from .modules.transform.t_heure_maj import THeureMaj
-from .modules.transform.t_humidite import THumidite
-from .modules.transform.t_pression import TPression
-from .modules.transform.t_pluie import TPluie
-from .modules.transform.t_pluie_max import TPluieMax
-from .modules.transform.t_vent_moyen import TVentMoyen
-from .modules.transform.t_rafale_max import TRafaleMax
-from .modules.transform.t_direction_vent_max import TDirectionVentMax
-from .modules.transform.t_direction_vent_max_deg import TDirectionVentMaxDeg
-from .modules.transform.t_direction_vent_moyen import TDirectionVentMoyen
+from .modules.transform.transformer_registry import TRANSFORMER_REGISTRY
 
 # Commands
 from .modules.command import ExtractCommand, TransformCommand, ShowCommand
-
-
-# Mapping nom technique → classe transformer
-TRANSFORMER_REGISTRY = {
-    "ville": TVille,
-    "temperature": TTemperature,
-    "heure_maj": THeureMaj,
-    "humidite": THumidite,
-    "pression": TPression,
-    "pluie": TPluie,
-    "pluie_max": TPluieMax,
-    "vent_moyen": TVentMoyen,
-    "rafale_max": TRafaleMax,
-    "direction_vent_max": TDirectionVentMax,
-    "direction_vent_max_deg": TDirectionVentMaxDeg,
-    "direction_vent_moyen": TDirectionVentMoyen,
-}
 
 
 def main() -> None:

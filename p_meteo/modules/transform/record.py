@@ -1,3 +1,15 @@
+"""
+Objet métier central regroupant toutes les données météo transformées.
+
+Ce module définit la classe Record, utilisée comme conteneur dynamique :
+- certains attributs génériques sont toujours présents (ville, dataset_id, heure_maj)
+- les autres attributs sont créés à la volée selon le mapping des KPIs
+  fourni au constructeur
+
+L’objectif est de disposer d’un objet unique, extensible et cohérent,
+sur lequel les transformers écrivent et que les viewers Streamlit lisent.
+"""
+
 class Record:
     """
     Objet métier contenant toutes les données météo transformées.

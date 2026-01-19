@@ -1,6 +1,21 @@
+"""
+Formulaire Streamlit permettant d’ajouter ou modifier une station météo.
+
+Ce module fournit une fonction réutilisable qui gère :
+- la sélection ou création d’une ville
+- la saisie du dataset_id
+- un test API optionnel
+- la validation ou l’annulation du formulaire
+
+Il est conçu pour être utilisé dans différentes pages Streamlit
+grâce au paramètre form_key qui évite les collisions d’ID.
+"""
+
+from typing import Optional, Tuple
+
 import streamlit as st
 import pandas as pd
-from typing import Optional, Tuple
+
 from modules.extract.call_api import CallApi
 
 

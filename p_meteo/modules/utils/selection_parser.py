@@ -28,6 +28,10 @@ def parse_multi_selection(selection: str, max_index: int) -> Optional[List[int]]
         - Une liste d'entiers si la saisie est valide.
         - None si la saisie est invalide (format ou valeurs hors bornes).
     """
+
+    if not isinstance(selection, str) or not selection.strip():
+        return None
+
     try:
         result: list[int] = []
         parts = selection.split(",")

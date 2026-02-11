@@ -78,7 +78,7 @@ class Configuration:
             json.dump(self._config, jsn_config, indent=4, ensure_ascii=False)
 
     # ----------------------------------------------------------------------
-    # 🔥 Méthodes spécialisées pour ton pipeline
+    # 🔥 Méthodes spécialisées pour le pipeline
     # ----------------------------------------------------------------------
 
     def get_selected_kpis(self) -> List[str]:

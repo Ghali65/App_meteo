@@ -61,7 +61,7 @@ Le projet a été développé et testé avec :
 
 ## 2. Créer un environnement virtuel (recommandé)
 
-    python -m venv .venv
+    python3 -m venv .venv
 
 ## 3.1 Activer l'environnement (sous windows)
 
@@ -125,7 +125,7 @@ Les dépendances sont séparées dans :
 
     docker compose up streamlit
 
-Interface accessible à :
+Interface streamlit accessible à :
 
     http://localhost:8501
 
@@ -142,6 +142,9 @@ Pour avoir Streamlit + console interactive :
     docker compose up -d streamlit
     docker compose run console
 
+Rappel : Interface streamlit accessible à :
+
+    http://localhost:8501
 ---
 
 ## 🛑 Arrêt des conteneurs

@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  console:
+    build:
+      context: .
+      dockerfile: dockerfile_console
+    container_name: meteo_console
+    stdin_open: true      # permet l'interaction (menus console)
+    tty: true             # nécessaire pour un terminal interactif
+
+  streamlit:
+    build:
+      context: .
+      dockerfile: dockerfile_streamlit
+    container_name: meteo_streamlit
+    ports:
+      - "8501:8501"       # expose l’interface Streamlit

@@ -1,0 +1,49 @@
+# Environnements virtuels
+.venv/
+env/
+venv/
+
+# Caches Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Caches outils
+.pytest_cache/
+.ruff_cache/
+.streamlit/
+
+# Git
+.git/
+.gitignore
+
+# Tests
+test/
+tests/
+.coverage
+htmlcov/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Documentation
+documentation/
+
+# Fichiers perso / outils
+imports.txt
+scan_imports.py
+
+# Variables sensibles
+.env
+
+# VS Code
+.vscode/
+
+# Python build artifacts
+build/
+dist/
+*.egg-info/

@@ -24,3 +24,4 @@ Thumbs.db
 # Fichiers de test ou de debug
 *.coverage
 .cache/
+

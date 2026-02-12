@@ -1,197 +1,222 @@
-# 🌦️ Application Météo – Version Console & Version Web
+# 🌦️ Application Météo – Version Console & Version Web (Streamlit)
 
-Ce projet a été réalisé dans le cadre de ma formation en développement Python.  
-Il s’agit d’une application météo **modulaire**, capable de fonctionner :
+Ce projet a été réalisé dans le cadre d’une formation en développement Python.  
+Il s’agit d’une application météo modulaire, capable de fonctionner :
 
-- en **version console** (interface texte)  
-- en **version web** grâce à **Streamlit**
+- en version console (interface texte interactive)  
+- en version web grâce à Streamlit
 
-L’application permet de consulter les données météo de différentes villes, d’administrer une liste de stations, et d’afficher plusieurs indicateurs (température, humidité, vent…).
-
----
-## 🧩 Prérequis
-
-Ce projet a été développé et testé avec :
-
-- **Python 3.12.3**
-- pip 23+ recommandé
-
-Assure‑toi d’utiliser une version compatible pour éviter les problèmes liés aux dépendances ou aux nouveautés du langage.
+L’application permet de consulter les données météo de différentes villes, d’administrer une liste de stations, et d’afficher plusieurs indicateurs (température, humidité, pression…).
 
 ---
 
-## 🎯 Objectifs pédagogiques
+# 🧩 Prérequis
 
-- Manipuler des fichiers CSV et des DataFrame (Pandas)  
+Le projet a été développé et testé avec :
+
+- Python 3.12.3
+- pip 23+
+- Docker & Docker Compose
+
+---
+
+# 🎯 Objectifs pédagogiques
+
+- Manipuler des fichiers CSV et des DataFrame  
 - Structurer un projet Python de manière modulaire  
 - Créer une interface console interactive  
 - Créer une interface web moderne avec Streamlit  
-- Appeler une API externe pour récupérer des données météo  
-- Gérer un mode administrateur complet  
-- Produire une documentation claire et exploitable
+- Appeler une API externe  
+- Gérer un mode administrateur  
+- Conteneuriser une application Python  
+- Orchestrer plusieurs services avec Docker Compose  
 
 ---
 
-## 🧱 Fonctionnalités principales
+# 🧱 Fonctionnalités principales
 
-### ✔ Version console
-- Menu principal interactif  
+## Version console
+- Menu interactif  
 - Consultation météo multi‑stations  
-- Affichage des KPI météo  
-- Mode administrateur
-- Test API intégré
+- Affichage des KPI  
+- Mode administrateur  
+- Test API intégré  
 
-### ✔ Version web (Streamlit)
-- Interface moderne et intuitive  
+## Version web (Streamlit)
+- Interface moderne  
 - Navigation par onglets  
-- Affichage des données météo en temps réel  
-- Mode administrateur complet  
-- Formulaire dynamique + messages persistants  
-- Test API optionnel
+- Données météo en temps réel  
+- Mode administrateur  
+- Formulaire dynamique  
+- Test API optionnel  
 
 ---
 
-## 🚀 Installation
+# 🚀 Installation (hors Docker)
 
-### 1. Cloner le projet
+## 1. Cloner le projet
 
-```bash
-git clone <url_du_projet>
-cd APP_METEO
-```
+    git clone <url_du_projet>
+    cd APP_METEO
 
-### 2. Installer les dépendances
+## 2. Créer un environnement virtuel (recommandé)
 
-```bash
-pip install -r requirements.txt
-```
+    python -m venv .venv
 
----
+## 3.1 Activer l'environnement (sous windows)
 
-## ▶️ Exécution
+    .venv\Scripts\activate
 
-### ✔ Version console
+## 3.2 Activer l'environnement (sous linux)
 
-```bash
-python -m p_meteo
-```
+    source .venv/bin/activate
 
-### ✔ Version Web (Streamlit)
+## 4. Installer les dépendances
 
-```bash
-streamlit run p_meteo/streamlit_app.py
-```
+    pip install -r requirements.txt
 
 ---
 
-## 📁 Structure du projet (vue compacte)
+# ▶️ Exécution (hors Docker)
 
-```text
-APP_METEO/
-├── .env / .gitignore / README.md / requirements.txt
-├── documentation/       ← Documentation technique complète
-├── .streamlit/          ← Configuration Streamlit
-└── p_meteo/             ← Code source principal (console + Streamlit)
-```
+## Version console
 
-👉 La structure détaillée du projet est disponible dans :  
-**documentation/30_Annexes/structure_pmeteo.md**
+    python -m p_meteo
+
+## Version Web (Streamlit)
+
+    streamlit run p_meteo/streamlit_app.py
 
 ---
 
-## 📘 Documentation complète
+# 🐳 Déploiement avec Docker & Docker Compose
 
-La documentation est organisée en quatre sections :
+Le projet inclut une architecture Docker complète permettant d’exécuter :
 
-### 1. Modules techniques  
-`documentation/10_modules/`  
-Documentation complète des modules internes : Extract, Transform, Show, Admin, Menu…
+- la version console  
+- la version Streamlit  
+- ou les deux simultanément  
 
-### 2. Annexes  
-`documentation/20_Annexes/`  
-Schémas Mermaid, structure du projet, annexes visuelles, guide ajout kpi.
+Deux images distinctes sont générées à partir de :
 
-### 3. Architecture générale  
-`documentation/Architecture_generale.md`  
-Vue d’ensemble de l’architecture du projet :  
-- organisation modulaire  
-- structure des dossiers  
-- points d’entrée (console & Streamlit)  
-- description des grands modules  
-- patterns utilisés (Command, Factory, Singleton, LinkedList)  
-- schéma global du fonctionnement
+- dockerfile_console  
+- dockerfile_streamlit  
 
-### 4. Pipeline de traitement des données  
-`documentation/pipeline_donnees.md`  
-Description complète du flux de données :  
-- sélection de la station  
-- appel API  
-- conversion en DataFrame  
-- transformations KPI  
-- construction de l’objet métier  
-- affichage console et Streamlit  
-- schémas Mermaid du pipeline
+Les dépendances sont séparées dans :
 
-## 5. 🔍 Analyse de code avec Pylint
-
-Le projet inclut une configuration personnalisée de **Pylint**, afin d’assurer une qualité de code homogène tout en respectant l’architecture modulaire du projet (Command pattern, Transformers, Viewers…).
-
-### ✔️ Lancer l’analyse Pylint
-
-Depuis la racine du projet :
-
-```bash
-PYTHONPATH=p_meteo pylint p_meteo
-```
-
-Cette commande :
-
-- ajoute `p_meteo/` au `PYTHONPATH`
-- analyse tout le code source
-- applique automatiquement les règles définies dans `.pylintrc`
+- requirements_console.txt  
+- requirements_streamlit.txt  
 
 ---
 
-### ✔️ Fichier `.pylintrc` (inclus à la racine du projet)
+## 📦 Construction des images
 
-Le fichier `.pylintrc` désactive uniquement les règles **non pertinentes** pour ce type d’architecture :
-
-```ini
-[MASTER]
-ignore=__pycache__
-
-[MESSAGES CONTROL]
-disable=
-    R0903,  # too-few-public-methods (classes utilitaires ou patterns)
-    R0912,  # too-many-branches (menus console / formulaires Streamlit)
-    R0914,  # too-many-locals (fonctions verbeuses par nature)
-    R0915,  # too-many-statements (menus complexes)
-```
-
-Ces règles génèrent des faux positifs dans un projet structuré autour de :
-
-- classes simples (transformers, viewers, commands...)
-- menus console ou Streamlit naturellement verbeux
-- formulaires d’administration avec beaucoup de champs
-
-👉 Toutes les autres règles Pylint restent actives :  
-imports, variables inutilisées, exceptions trop larges, conventions, etc.
+    docker compose build
 
 ---
 
-### ✔️ Résultat attendu
+## ▶️ Exécution des services
 
-Avec cette configuration, le projet obtient un score stable de :
+### Version console (mode interactif)
 
-```
-10.00 / 10
-```
+    docker compose run console
 
-tout en conservant une analyse statique pertinente et utile.
+### Version Streamlit
+
+    docker compose up streamlit
+
+Interface accessible à :
+
+    http://localhost:8501
 
 ---
 
-## 📝 Licence
+### Lancer les deux services
+
+    docker compose up
+
+⚠️ Cette commande ne permet pas d’interagir avec la console.
+
+Pour avoir Streamlit + console interactive :
+
+    docker compose up -d streamlit
+    docker compose run console
+
+---
+
+## 🛑 Arrêt des conteneurs
+
+    docker compose down
+
+---
+
+# 📁 Structure Docker du projet
+
+    APP_METEO/
+    ├── docker-compose.yml
+    ├── dockerfile_console
+    ├── dockerfile_streamlit
+    ├── requirements_console.txt
+    ├── requirements_streamlit.txt
+    └── .dockerignore
+
+---
+
+# 🧪 Vérification par le correcteur
+
+1. Construire les images  
+       docker compose build
+
+2. Tester la version console  
+       docker compose run console
+
+3. Tester la version Streamlit  
+       docker compose up streamlit
+
+4. Tester les deux  
+       docker compose up
+
+5. Arrêter proprement  
+       docker compose down
+
+Aucun environnement Python local n’est nécessaire : tout fonctionne dans Docker.
+
+---
+
+# 📁 Structure du projet (vue compacte)
+
+    APP_METEO/
+    ├── .env / .gitignore / README.md / requirements.txt
+    ├── docker-compose.yml
+    ├── dockerfile_console
+    ├── dockerfile_streamlit
+    ├── requirements_console.txt
+    ├── requirements_streamlit.txt
+    ├── documentation/
+    └── p_meteo/
+
+---
+
+# 📘 Documentation complète
+
+- documentation/10_modules/  
+- documentation/20_Annexes/  
+- documentation/Architecture_generale.md  
+- documentation/pipeline_donnees.md  
+
+---
+
+# 🔍 Analyse de code avec Pylint
+
+    PYTHONPATH=p_meteo pylint p_meteo
+
+Score attendu :
+
+    10.00 / 10
+
+---
+
+# 📝 Licence
 
 Projet réalisé dans un cadre pédagogique.  
 Libre d’utilisation et d’adaptation.
